@@ -30,20 +30,13 @@ class JukeBox {
   }
 
   def loadClip(resourcePath: String, soundName: String, howMany: Int): Boolean = {
-    var x: Int = 0
-
     for (i <- 0 until howMany) {
       try {
         val is: InputStream = getClass.getResourceAsStream(resourcePath)
-        if (is == null) {
-          println("Can't find sound")
-          return false
-        }
+        assert(is != null, "Can't find sound")
+
         val loaded: Boolean = loadClip(is, soundName)
-        if (!loaded) {
-          println("Can't load sound")
-          return false
-        }
+        assert(loaded, "Can't load sound")
       }
       catch {
         case e: Exception => {
@@ -52,7 +45,6 @@ class JukeBox {
         }
       }
     }
-
     true
   }
 
@@ -74,9 +66,8 @@ class JukeBox {
         e.printStackTrace()
       }
     }
-    if (audioInputStream == null) {
-      return false
-    }
+
+    assert(audioInputStream != null, "Can't load audio input stream")
     val format: AudioFormat = audioInputStream.getFormat
     val info: DataLine.Info = new DataLine.Info(classOf[Clip], format)
     var clip: Sound = null
@@ -96,15 +87,12 @@ class JukeBox {
         return false
       }
     }
-    if (clip == null) {
-      return false
-    }
     true
   }
 
   private def trimExtension(name: String): String = {
     val last: Int = name.lastIndexOf(".")
-    require(last != 0, "can't start a name with a dot")
+    assert(last != 0, "can't start a name with a dot")
     if (last > -1) name.substring(0, last) else name
   }
 
@@ -112,6 +100,7 @@ class JukeBox {
     playClip(name, 1)
   }
 
+  // TODO synchronized
   def playClip(nameWithExtension: String, numberOfLoops: Int): Int = {
     val name = trimExtension(nameWithExtension)
     if (!availableClips.contains(name)) {
@@ -148,9 +137,7 @@ class JukeBox {
         e.printStackTrace()
       }
     }
-    if (ais == null) {
-      return -1
-    }
+    assert(ais != null, "Can't load audio input stream")
     val frames: Long = ais.getFrameLength
     val format: AudioFormat = ais.getFormat
     val framesPerSecond: Float = format.getFrameRate
@@ -158,6 +145,7 @@ class JukeBox {
     seconds
   }
 
+  // TODO synchronized
   def playBackground(is: InputStream): BackgroundSound = {
     if (bs != null) {
       bs.stopBackgroundSound(false)
@@ -174,9 +162,7 @@ class JukeBox {
         e.printStackTrace()
       }
     }
-    if (ais == null) {
-      return null
-    }
+    assert(ais != null, "Can't load audio input stream")
     val format: AudioFormat = ais.getFormat
     val info: DataLine.Info = new DataLine.Info(classOf[SourceDataLine], format)
     var background: SourceDataLine = null
@@ -207,6 +193,7 @@ class JukeBox {
     }
   }
 
+  // TODO synchronized
   def makeAvailable(sound: Sound) {
     if (availableClips.contains(sound.name)) {
       playingClips = playingClips - sound.id
@@ -216,10 +203,13 @@ class JukeBox {
     }
   }
 
+  // TODO synchronized
   def stopClip(id: Int) = if (playingClips.contains(id)) playingClips(id).stop()
 
+  // TODO synchronized
   def stopAllClips() = playingClips.foreach((e: (Int, Sound)) => e._2.stop())
 
+  // TODO synchronized
   def close() {
     stopAllClips()
     stopCurrentBackgroundSound(true)
