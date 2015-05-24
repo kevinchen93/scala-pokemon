@@ -1,0 +1,21 @@
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Java
+*.class
+
+# Ignore Text files
+*.txt
+
+# Mac
+.DS_Store
+
+# Emacs
+*~
+
+# Maven
+log/
+target/
+
