@@ -1,4 +1,4 @@
-import java.awt.{Toolkit, Image}
+import java.awt.{Image}
 import java.io.{IOException, FileNotFoundException, FileReader, BufferedReader}
 import java.util.StringTokenizer
 
@@ -7,23 +7,30 @@ import java.util.StringTokenizer
  */
 object Monsters {
 
-  private var normal    = 0
-  private var fire      = 1
-  private var water     = 2
-  private var grass     = 3
-  private var electric  = 4
-  private var ice       = 5
-  private var fighting  = 6
-  private var poison    = 7
-  private var ground    = 8
-  private var flying    = 9
-  private var psychic   = 10
-  private var bug       = 11
-  private var rock      = 12
-  private var ghost     = 13
-  private var dragon    = 14
-  private var dark      = 15
-  private var steel     = 16
+  private var normal = 0
+  private var fire = 1
+  private var water = 2
+  private var grass = 3
+  private var electric = 4
+  private var ice = 5
+  private var fighting = 6
+  private var poison = 7
+  private var ground = 8
+  private var flying = 9
+  private var psychic = 10
+  private var bug = 11
+  private var rock = 12
+  private var ghost = 13
+  private var dragon = 14
+  private var dark = 15
+  private var steel = 16
+
+  val statusUnaffected = 0
+  val statusParalyzed = 1
+  val statusBurned = 2
+  val statusPoisoned = 3
+  val statusAsleep = 4
+  val statusFrozen = 5
 }
 
 class Monsters {
@@ -64,6 +71,7 @@ class Monsters {
 
   // TODO fix setters
   def backSprite_=(sprite: Image): Unit = _backSprite = sprite
+
   def frontSprite_=(sprite: Image): Unit = _frontSprite = sprite
 
   private var _backSprite: Image = null
@@ -85,6 +93,35 @@ class Monsters {
   private var strong = new Array[Boolean](16)
   private var shiny = false
 
+  def unaffected = statusEffect == Monsters.statusUnaffected
+
+  def affected = !unaffected
+
+  def paralyzed = statusEffect == Monsters.statusParalyzed
+
+  def burned = statusEffect == Monsters.statusBurned
+
+  def poisoned = statusEffect == Monsters.statusPoisoned
+
+  def asleep = statusEffect == Monsters.statusAsleep
+
+  def frozen = statusEffect == Monsters.statusFrozen
+
+  def stabilizeStatus(): Unit = {
+    statusEffect match {
+      case 4 => println(s"$name has woken up.")
+      case 5 => println(s"$name has broken free from the ice.")
+    }
+    statusEffect = 0
+  }
+
+  def reiterateStatus(): Unit = {
+    statusEffect match {
+      case 4 => println(s"$name is still asleep.")
+      case 5 => println(s"$name is frozen solid.")
+    }
+  }
+
   def loseHp(i: Int): Unit = {
     curHp -= i
   }
@@ -101,6 +138,7 @@ class Monsters {
   }
 
   def frontSprite() = if (shiny) frontSpriteShiny else _frontSprite
+
   def backSprite() = if (shiny) backSpriteShiny else _backSprite
 
   def levelUp(): Unit = {

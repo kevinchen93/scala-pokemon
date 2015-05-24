@@ -12,18 +12,12 @@ class JukeBox {
   private var bs: BackgroundSound = null
 
   // map sound file names to sounds
-  private var availableClips: Map[String, List[Sound]] = null
+  private var availableClips: Map[String, List[Sound]] = new HashMap[String, List[Sound]]
 
   // map sound ids to sounds
-  private var playingClips: Map[Int, Sound] = null
+  private var playingClips: Map[Int, Sound] = new HashMap[Int, Sound]
   private var nextClip: Int = 0
   private var debug: Boolean = false
-
-  def this() {
-    this()
-    availableClips = new HashMap[String, List[Sound]]
-    playingClips = new HashMap[Int, Sound]
-  }
 
   def setDebug(b: Boolean) {
     debug = b
