@@ -6,7 +6,7 @@ import java.util.*;
 import java.awt.geom.*;
 import java.io.*;
 
-public class Pokemon extends JPanel implements KeyListener, ActionListener {
+public class pPokemon extends JPanel implements KeyListener, ActionListener {
 	//-----------------------------------------------------------------
 	// Pokemon: Metallic Silver
 	//-----------------------------------------------------------------
@@ -695,7 +695,7 @@ public class Pokemon extends JPanel implements KeyListener, ActionListener {
 	        	atContinueScreen = true;
 	        }
      	}
-     	else if (atContinueScreen == true && atTitle == false) {
+     	else if (atContinueScreen && !atTitle) {
 			if (keyCode == KeyEvent.VK_UP) {
 				button_pressed();
 				if (concurrentMenuItem > 0) {
