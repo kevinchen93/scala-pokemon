@@ -29,22 +29,19 @@ object NPC {
 }
 
 
-class NPC(x: Int, y: Int, name: String, text: String, sprite: Image, battleSprite: Image) extends MoveableActor(x, y,
-  name) {
-  override def act(): Unit = ???
+class NPC(var x: Int, var y: Int, val name: String, text: String, sprite: Image, battleSprite: Image) extends
+MoveableActor {
 
-  override def move(): Unit = ???
+  var battleText = text
+  var charset: Array[Image] = null
+  var direction = 1
 
-    var battleText = text
-    var charset: Array[Image] = null
-    var direction = 1
+  def width = sprite.getWidth(null) / 4
 
-    def width = sprite.getWidth(null) / 4
-    def height = sprite.getHeight(null) / 4
-    def text(other: Player) = if (adjacentTo(other)) text else ""
+  def height = sprite.getHeight(null) / 4
 
+  def text(other: Player) = if (adjacentTo(other)) text else ""
 }
-
 
 
 var violetCitizen1 = new NPC(42, 30, "Citizen", "We care about the traditional buildings around here.", NPC.imgBaldMan, null)
