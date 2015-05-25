@@ -7,10 +7,6 @@ import scala.util.Random
  */
 class Player(x: Int, y: Int, name: String, sprite: Image) extends MoveableActor(x, y) {
 
-  override def act(): Unit = ???
-
-  override def move(): Unit = ???
-
   var pokemonOwned = 1
   var random: Random = new Random()
   var id: Int = randomId()

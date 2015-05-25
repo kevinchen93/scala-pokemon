@@ -4,7 +4,7 @@ import java.io._
 import java.util.StringTokenizer
 import javax.swing.{Timer, JFrame, JPanel}
 
-import sound.JukeBox
+import scala.compat.Platform
 
 /**
  * Created by kevinchen on 5/24/15.
@@ -15,21 +15,10 @@ class PokemonGameEngine extends JPanel with ActionListener {
   def tk = jf.getToolkit
 
   // PLAYER VARS
-  var name: String = "Gold"
-  private var player: Image = tk.createImage(getClass.getResource("Graphics/Characters/Player/Down.png"))
-  private var playerUp: Image = tk.createImage(getClass.getResource("Graphics/Characters/Player/Up.png"))
-  private var playerUp1: Image = tk.createImage(getClass.getResource("Graphics/Characters/Player/Up1.png"))
-  private var playerUp2: Image = tk.createImage(getClass.getResource("Graphics/Characters/Player/Up2.png"))
-  private var playerDown: Image = tk.createImage(getClass.getResource("Graphics/Characters/Player/Down.png"))
-  private var playerDown1: Image = tk.createImage(getClass.getResource("Graphics/Characters/Player/Down1.png"))
-  private var playerDown2: Image = tk.createImage(getClass.getResource("Graphics/Characters/Player/Down2.png"))
-  private var playerLeft: Image = tk.createImage(getClass.getResource("Graphics/Characters/Player/Left.png"))
-  private var playerLeft1: Image = tk.createImage(getClass.getResource("Graphics/Characters/Player/Left1.png"))
-  private var playerLeft2: Image = tk.createImage(getClass.getResource("Graphics/Characters/Player/Left2.png"))
-  private var playerRight: Image = tk.createImage(getClass.getResource("Graphics/Characters/Player/Right.png"))
-  private var playerRight1: Image = tk.createImage(getClass.getResource("Graphics/Characters/Player/Right1.png"))
-  private var playerRight2: Image = tk.createImage(getClass.getResource("Graphics/Characters/Player/Right2.png"))
-  val gold = new Player(10, 9, name, player)
+  var name = "Gold"
+
+  val gold = new Player(10, 9, name, Sprites.player)
+  var pokemonparty: List[Monsters] = Nil
 
   var currentMapName = "Data/Johto.map"
 
@@ -60,6 +49,7 @@ class PokemonGameEngine extends JPanel with ActionListener {
   gameTimer.start()
 
 
+
   sealed trait Direction
   case object Up extends Direction
   case object Down extends Direction
@@ -75,8 +65,32 @@ class PokemonGameEngine extends JPanel with ActionListener {
     loadMap(currentMapName)
     if (continued) {
       GameLoader.loadGame(this)
-      mainitems[ 0][3] = potion
+      mainitems(0)(3) = potion
     }
+    else {
+      currentX_loc = 6 - 7
+      currentY_loc = 67 - 4
+      posX_tile = currentX_loc + 7
+      posY_tile = currentY_loc + 4
+
+      pokemonparty = (new Monsters).create(25) :: pokemonparty
+//        (new Monsters).create(0),
+//        (new Monsters).create(0),
+//        (new Monsters).create(0),
+//        (new Monsters).create(0),
+//        (new Monsters).create(0)
+      )
+      mainitems(0)(3) = potion
+      money = 2000
+    }
+    soundController.play(SoundController.cherryGroveCity)
+    player = playerDown
+    atTitle = false
+    atContinueScreen = false
+    gamestarted = true
+    movable = true
+    timePlayed = java.lang.System.currentTimeMillis()
+    Platform.currentTime
   }
 
   private def loadMap(map: String): Unit = {

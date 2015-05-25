@@ -154,6 +154,7 @@ class Monsters {
 
     n match {
 
+        // Charmander
       case 4 => {
         name = "Charmander"
         level = 5
@@ -188,6 +189,8 @@ class Monsters {
 			strong[bug]=true;
 			strong[ice]=true;*/
       }
+
+        // Swinub
       case 220 => {
         name = "Swinub"
         level = 3
@@ -224,6 +227,8 @@ class Monsters {
         strong[grass]=true;
         strong[flying]=true;*/
       }
+
+        // Totodile
       case 158 => {
         name = "Totodile"
         level = 5
@@ -257,6 +262,8 @@ class Monsters {
 			strong[rock]=true;
 			strong[ground]=true;*/
       }
+
+        // Pikachu
       case 25 => {
         name = "Pikachu"
         level = 5
@@ -289,6 +296,8 @@ class Monsters {
 			strong[water]=true;
 			strong[flying]=true;*/
       }
+
+        // Murkrow
       case 198 => {
         name = "Murkrow"
         level = 4
@@ -360,7 +369,7 @@ class Monsters {
     }
   }
 
-  def loadPokemon = {
+  def loadPokemon() = {
     try {
       val reader = new BufferedReader(new FileReader("Data/pokemon.txt"))
       var line = ""

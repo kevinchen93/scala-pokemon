@@ -40,9 +40,6 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
     private int TILE_HEIGHT_PIXELS = 32;
     private int concurrentMenuItem = 0;
     public long seconds = 0;
-    public long oldTime;
-    public long minutes = 0;
-    public long hours = 0;
     private MidiPlayer title = new MidiPlayer("Audio/BGM/Title.mid", true);
     private MidiPlayer continuebgm = new MidiPlayer("Audio/BGM/Continue.mid", true);
     //-----------------------------------------------------------------
@@ -51,8 +48,6 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
     // Player Variables
     //-----------------------------------------------------------------
     public String name = "Gold";
-    public int trainerID;
-    public Image cardSprite = tk.createImage(getClass().getResource("Graphics/Characters/Battle/trainer000.png"));
     private Image player = tk.createImage(getClass().getResource("Graphics/Characters/Player/Down.png"));
     private Image playerUp = tk.createImage(getClass().getResource("Graphics/Characters/Player/Up.png"));
     private Image playerUp1 = tk.createImage(getClass().getResource("Graphics/Characters/Player/Up1.png"));
@@ -67,11 +62,8 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
     private Image playerRight1 = tk.createImage(getClass().getResource("Graphics/Characters/Player/Right1.png"));
     private Image playerRight2 = tk.createImage(getClass().getResource("Graphics/Characters/Player/Right2.png"));
     public Player gold = new Player(10, 9, name, player);
-    private boolean running = false;
-    private int lastdir = 1;
     private int movespritepixels = 0;
     private boolean walking = false;
-    private boolean moving = false;
     private boolean up = false;
     private boolean down = false;
     private boolean left = false;
@@ -81,7 +73,6 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
     private boolean movable_left = true;
     private boolean movable_right = true;
     private boolean talkable = false;
-    private boolean disable_talk = true;
     private boolean collision = false;
     private boolean footsprite = false;
     private String text = "";
@@ -163,32 +154,6 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
     private boolean showmessagebox = false;
 
 
-    private NPC[] currentMapNPC = new NPC[]{
-            viloet_citizen1,
-            viloet_citizen2,
-            viloet_citizen3,
-            viloet_citizen4,
-            viloet_citizen5,
-            violet_indoors1,
-            violet_indoors2,
-            school_student1,
-            school_student2,
-            school_student3,
-            school_student4,
-            school_student5,
-            school_student6,
-            mart_customer1,
-            store_clerk,
-            center_visitor1,
-            nurse_joy,
-            bird_keeper1,
-            bird_keeper2,
-            leader_faulkner,
-            old_man1,
-            cherrygrove_citizen1,
-            cherrygrove_citizen2,
-            cherrygrove_citizen3
-    };
     //-----------------------------------------------------------------
 
     //-----------------------------------------------------------------
