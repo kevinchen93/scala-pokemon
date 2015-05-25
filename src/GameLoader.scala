@@ -5,7 +5,7 @@ import java.io._
  */
 object GameLoader {
 
-  def loadGame(game: Pokemon): Unit = {
+  def loadGame(game: PokemonGameEngine): Unit = {
     val file: File = new File("Data/profile.sav")
     var fis: FileInputStream = null
     var bis: BufferedInputStream = null

@@ -2,14 +2,14 @@ import java.awt.event.{ActionEvent, ActionListener}
 import java.awt.{Image, Dimension, Color}
 import java.io._
 import java.util.StringTokenizer
-import javax.swing.{JFrame, JPanel}
+import javax.swing.{Timer, JFrame, JPanel}
 
 import sound.JukeBox
 
 /**
  * Created by kevinchen on 5/24/15.
  */
-class Pokemon extends JPanel with ActionListener {
+class PokemonGameEngine extends JPanel with ActionListener {
 
   val jf: JFrame
   def tk = jf.getToolkit
@@ -40,23 +40,35 @@ class Pokemon extends JPanel with ActionListener {
   var mapTilesX: Int
   var mapTilesY: Int
 
-  val col = new JukeBox()
-  col.loadClip("Audio/SE/Collision.wav", "Collision", 1)
-  col.loadClip("Audio/SE/Select.wav", "Select", 1)
-  col.loadClip("Audio/SE/Menu.wav", "Menu", 1)
-  col.loadClip("Audio/SE/Damage.wav", "Damage", 1)
-
-  setBackground(Color.BLACK)
-  setPreferredSize(new Dimension(480, 320))
+  var inMenu = false
+  var inBattle = false
+  var movable = true
+  var walking = false
 
   var atTitle = true
   var atContinueScreen = false
   var gameStarted = false
   var concurrentMenuItem = 0
-  //  def atTitle = _atTitle
-  //  def atTitle_=(b: Boolean) = _atTitle = b
 
+  val soundController = new SoundController()
+  soundController.play(SoundController.title)
+  val menu = new MenuScene(this)
+  setBackground(Color.BLACK)
+  setPreferredSize(new Dimension(480, 320))
   addKeyListener(new MyKeyListener(this))
+  val gameTimer = new Timer(350, this)
+  gameTimer.start()
+
+
+  sealed trait Direction
+  case object Up extends Direction
+  case object Down extends Direction
+  case object Left extends Direction
+  case object Right extends Direction
+
+  def movableInDirection(dir: Direction) = dir match {
+    case Up => movable_up
+  }
 
   def start(continued: Boolean): Unit = {
     loadTileSet()

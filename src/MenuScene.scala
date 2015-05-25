@@ -5,7 +5,7 @@ import sound.JukeBox
 /**
  * Created by kevinchen on 5/23/15.
  */
-class MenuScene(game: Pokemon) {
+class MenuScene(game: PokemonGameEngine) {
 
   val col = new JukeBox
   col.loadClip("Audio/SE/Menu.wav", "Menu", 1)

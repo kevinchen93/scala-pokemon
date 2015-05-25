@@ -161,63 +161,7 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
 		private int y_coor = 0;
 		private int tile_number = 0;
 		private boolean showmessagebox = false;
-	//-----------------------------------------------------------------
-	
-	//-----------------------------------------------------------------
-	// NPC's
-	//-----------------------------------------------------------------
-		private Image baldman = tk.createImage(getClass().getResource("Graphics/Characters/NPC/Baldman.png"));
-		private Image beauty = tk.createImage(getClass().getResource("Graphics/Characters/NPC/Beauty.png"));
-		private Image bill = tk.createImage(getClass().getResource("Graphics/Characters/NPC/Bill.png"));
-		private Image birdkeeperl = tk.createImage(getClass().getResource("Graphics/Characters/NPC/BirdKeeperL.png"));
-		private Image birdkeeperr = tk.createImage(getClass().getResource("Graphics/Characters/NPC/BirdKeeperR.png"));
-		private Image boy = tk.createImage(getClass().getResource("Graphics/Characters/NPC/Boy.png"));
-		private Image bugcatcher = tk.createImage(getClass().getResource("Graphics/Characters/NPC/BugCatcher.png"));
-		private Image camperd = tk.createImage(getClass().getResource("Graphics/Characters/NPC/CamperD.png"));
-		private Image camperl = tk.createImage(getClass().getResource("Graphics/Characters/NPC/CamperL.png"));
-		private Image falkner = tk.createImage(getClass().getResource("Graphics/Characters/NPC/Falkner.png"));
-		private Image fatman = tk.createImage(getClass().getResource("Graphics/Characters/NPC/FatMan.png"));
-		private Image fisher = tk.createImage(getClass().getResource("Graphics/Characters/NPC/Fisher.png"));
-		private Image guidegent = tk.createImage(getClass().getResource("Graphics/Characters/NPC/GuideGent.png"));
-		private Image lass = tk.createImage(getClass().getResource("Graphics/Characters/NPC/Lass.png"));
-		private Image mom = tk.createImage(getClass().getResource("Graphics/Characters/NPC/Mom.png"));
-		private Image mrpokemon = tk.createImage(getClass().getResource("Graphics/Characters/NPC/MrPokemon.png"));
-		private Image nurse = tk.createImage(getClass().getResource("Graphics/Characters/NPC/Nurse.png"));
-		private Image picknicker = tk.createImage(getClass().getResource("Graphics/Characters/NPC/Picknicher.png"));
-		private Image oak = tk.createImage(getClass().getResource("Graphics/Characters/NPC/ProfOak.png"));
-		private Image shopkeep = tk.createImage(getClass().getResource("Graphics/Characters/NPC/ShopKeep.png"));
-		private Image youngster = tk.createImage(getClass().getResource("Graphics/Characters/NPC/Youngster.png"));
-		
-		private NPC viloet_citizen1 = new NPC (42,30,"Citizen","We care about the traditional buildings around here.",baldman,null);
-		private NPC viloet_citizen2 = new NPC (34,34,"Citizen","It is rumored that there are ghost pokemon in the Sprout Tower.",bill,null);
-		private NPC viloet_citizen3 = new NPC (30,23,"Citizen","Hey, your a pokemon trainer! If you beat the gym leader, you'll be ready for the big time.",camperl,null);
-		private NPC viloet_citizen4 = new NPC (24,26,"Citizen","Falkner, from Violet City pokemon gym, is a fine trainer.",boy,null);
-		private NPC viloet_citizen5 = new NPC (11,23,"Citizen","You can't have your pokemon out with you in all places.",fatman,null);
-		
-		private NPC violet_indoors1 = new NPC (8,108,"Citizen","There are many wild Pokemon in the tall grass.",baldman,null);
-		private NPC violet_indoors2 = new NPC (3,107,"Citizen","Do you want to trade Pokemon?",boy,null);
-		
-		private NPC school_student1 = new NPC (23,90,"Citizen","I want to learn how to become a Pokemon Master.",youngster,null);
-		private NPC school_student2 = new NPC (25,90,"Citizen","What type of Pokemon is Pikachu?",boy,null);
-		private NPC school_student3 = new NPC (26,90,"Citizen","Are you a Pokemon trainer?",beauty,null);
-		private NPC school_student4 = new NPC (23,88,"Citizen","The Sprout Tower is a shrine to Bellsprout.",youngster,null);
-		private NPC school_student5 = new NPC (25,86,"Citizen","Whadaya want from me!",camperl,null);
-		private NPC school_student6 = new NPC (24,84,"Citizen","You're never too old to learn about Pokemon.",baldman,null);
-		
-		private NPC mart_customer1 = new NPC (24,106,"Citizen","I wonder if they carry Pokeballs.",youngster,null);
-		private NPC store_clerk = new NPC (20,107,"Citizen","Can I help you with something?",shopkeep,null);
-		
-		private NPC center_visitor1 = new NPC (40, 107,"Citizen","You can heal your Pokemon by talking to Nurse Joy.",fatman,null);
-		private NPC nurse_joy = new NPC (42,105,"Citizen","We hope to see you again!",nurse,null);
-		
-		private NPC bird_keeper1 = new NPC (5,89,"Citizen","I want to be like Falkner.",birdkeeperr,null);
-		private NPC bird_keeper2 = new NPC (10,85,"Citizen","Falkner is the best.",birdkeeperl,null);
-		private NPC leader_faulkner = new NPC (7,81,"Citizen","My precious bird Pokemon are unstopable.",falkner,null);
-		
-		private NPC old_man1= new NPC (88, 102,"Citizen","I can guide you around cherrygrove!",guidegent,null);
-		private NPC cherrygrove_citizen1= new NPC (84, 105,"Citizen","I'm hungry.",fatman,null);
-		private NPC cherrygrove_citizen2= new NPC (83, 108,"Citizen","Cherrygrove City is beautiful.",lass,null);
-		private NPC cherrygrove_citizen3= new NPC (78, 104,"Citizen","Nothing interesting happens here.",boy,null);	
+
 		
 		private NPC[] currentMapNPC = new NPC[] {
 			viloet_citizen1,
@@ -268,23 +212,6 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
 		private Image messagebox = Toolkit.getDefaultToolkit().getImage(getClass().getResource("Graphics/Pictures/Message_Text.png"));
 	//-----------------------------------------------------------------
 	
-	//-----------------------------------------------------------------
-	// Sound Variables
-	//-----------------------------------------------------------------
-		public MidiPlayer currentBGM;
-		public MidiPlayer lastBGM;
-		private MidiPlayer newbarktown = new MidiPlayer("Audio/BGM/NewBarkTown.mid",true);
-		private MidiPlayer route29 = new MidiPlayer("Audio/BGM/Route29.mid",true);
-		private MidiPlayer cherrygrovecity = new MidiPlayer("Audio/BGM/CherrygroveCity.mid",true);
-		private MidiPlayer route30 = new MidiPlayer("Audio/BGM/Route30.mid",true);
-		private MidiPlayer violetcity = new MidiPlayer("Audio/BGM/VioletCity.mid",true);
-		private MidiPlayer pokecenter = new MidiPlayer("Audio/BGM/PokemonCenter.mid",true);
-		private MidiPlayer pokemart = new MidiPlayer("Audio/BGM/PokeMart.mid",true);
-		private MidiPlayer gym = new MidiPlayer("Audio/BGM/Gym.mid",true);
-		private MidiPlayer championBGM = new MidiPlayer("Audio/BGM/ChampionBattle.mid",true);
-		private MidiPlayer battleBGM = new MidiPlayer("Audio/BGM/WildBattle.mid",true);
-		private MidiPlayer victoryjingle = new MidiPlayer("Audio/SE/Wild_Victory.mid",false);
-		private JukeBox col = new JukeBox();
 	//-----------------------------------------------------------------
 	
 	//-----------------------------------------------------------------
@@ -725,75 +652,7 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
      	}
      	else if (gamestarted == true) {
 			if (inMenu == false && movable == true && inBattle == false) {
-				if (walking == false) {
-			        if (keyCode == KeyEvent.VK_UP) {
-			        	crashTest(currentMap0);
-			        	crashTest(currentMap1);
-			        	collision = true;
-			        	if (movable_up == true) {
-				        	up = true;
-				        	walking = true;
-			        	}
-			        	else {
-			        		gold.setSprite(playerUp);
-			        	}
-			        }
-			        else if (keyCode == KeyEvent.VK_DOWN) {
-			        	crashTest(currentMap0);
-			        	crashTest(currentMap1);
-			        	collision = true;
-			        	if (movable_down == true) {
-			        		down = true;
-			        		walking = true;
-			        	}
-			        	else {
-			        		gold.setSprite(playerDown);
-			        	}
-			        }
-			        else if (keyCode == KeyEvent.VK_LEFT) {
-			        	crashTest(currentMap0);
-			        	crashTest(currentMap1);
-			        	collision = true;
-			        	if (movable_left == true) {
-			        		left = true;
-			        		walking = true;
-			        	}
-			        	else {
-			        		gold.setSprite(playerLeft);
-			        	}
-			        }
-			        else if (keyCode == KeyEvent.VK_RIGHT) {
-			        	crashTest(currentMap0);
-			        	crashTest(currentMap1);
-			        	collision = true;
-			        	if (movable_right == true) {
-				        	right = true;
-				        	walking = true;
-			        	}
-			        	else {
-			        		gold.setSprite(playerRight);
-			        	}
-			        }
-			        else if (keyCode == KeyEvent.VK_ENTER) {
-			        	System.out.println("Menu Button");
-						col.playClip("Menu");
-						menu.inMain = true;
-			        	inMenu = true;
-			        }
-			        if (keyCode == KeyEvent.VK_Z) {
-			        	System.out.println("Action Button");
-			        	if (disable_talk == false) {
-			        		talkable = !talkable;
-				        	movable_up = !movable_up;
-				        	movable_down = !movable_down;
-				        	movable_left = !movable_left;
-				        	movable_right = !movable_right;
-			        	}
-			        }
-			        else if (keyCode == KeyEvent.VK_X) {
-			        	System.out.println("Cancel Button");
-			        }
-				}
+
 			}
 			//-----------------------------------------------------------------
 		    // Menu Scene
@@ -1154,7 +1013,7 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
 				    	}
 		    		}
 		    	}
-		    	if (encounter.inRun == true) {
+		    	if (encounter.inRun) {
 		    		if (keyCode == KeyEvent.VK_Z) {
 		    			encounter.confirmBattleEnd = true;
 		    		}
@@ -1163,35 +1022,14 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
 		    //-----------------------------------------------------------------
      	 }
      }
-     
-     public void keyReleased(KeyEvent e) {
-     	int keyCode = e.getKeyCode();
-     	if (keyCode == KeyEvent.VK_UP) {
-			lastdir = 1;
-		}
-		else if (keyCode == KeyEvent.VK_DOWN) {
-			lastdir = 2;
-		}
-		else if (keyCode == KeyEvent.VK_LEFT) {
-			lastdir = 3;
-		}
-		else if (keyCode == KeyEvent.VK_RIGHT) {
-			lastdir = 4;
-     	}
-     }
-	 public void keyTyped(KeyEvent e){}
-	 
-	 public void button_pressed() {
-		 col.playClip("Select");
-     }
-	 
+
 	 public void crashTest(int[] map) {
 	 	//Wild Pokemon Grass
         if (map[(posY_tile*mapTilesX)+posX_tile] == 17) {
         	stepscount++;
         }
 	 }
-	 
+
 	 public void collision() {
 		if (collision == true) {
 			col.playClip("Collision");
@@ -1419,13 +1257,7 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
 			//changeBGM(route30);
 	 	}
 	 }
-	 
-	 public void changeBGM(MidiPlayer newBGM) {
-	 	currentBGM.stop();
-	 	currentBGM = newBGM;
-	 	currentBGM.start();
-	 }
-	 
+
 	 public void showMessageBox(Graphics g) {
 	 	g.setColor(Color.BLACK);
 	 	//Trainer Pokemon Battles
@@ -1748,7 +1580,7 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
      	 //Create the window
      	 jf = new JFrame("Pokemon: Metallic Silver");
      	 //Create an instance of Pokemon and insert into the window
-     	 Pokemon pokemon = new Pokemon();
+     	 pPokemon pokemon = new pPokemon();
      	 jf.add(pokemon);
 	  	 jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	  	 jf.setResizable(false);

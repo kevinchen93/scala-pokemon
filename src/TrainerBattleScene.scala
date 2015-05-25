@@ -9,7 +9,7 @@ import scala.util.Random
 /**
  * Created by kevinchen on 5/24/15.
  */
-class TrainerBattleScene(game: Pokemon,
+class TrainerBattleScene(game: PokemonGameEngine,
                          trainer: NPC,
                          var myPokemon: List[Monsters],
                          var enemyPokemon: List[Monsters],

@@ -5,7 +5,7 @@ import java.util.*;
 
 public class BattleScene {
 	
-	private Pokemon game;
+	private PokemonGameEngine game;
 	private Font pokefont = new Font("pokesl1", Font.PLAIN, 18);
 	private Random r = new Random();
 	
@@ -40,7 +40,7 @@ public class BattleScene {
 	
 	private JukeBox col = new JukeBox();
 
-    public BattleScene(Pokemon pkmn, Monsters[] playerparty, Monsters wild, Items[] items) {
+    public BattleScene(PokemonGameEngine pkmn, Monsters[] playerparty, Monsters wild, Items[] items) {
     	game = pkmn;
     	playerPokemon = playerparty[0];
     	enemyPokemon = wild;
