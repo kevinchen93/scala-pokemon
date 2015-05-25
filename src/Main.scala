@@ -9,7 +9,9 @@ object Main {
   def main (args: Array[String]) {
     val frame = new JFrame("Pokemon: Metallic Silver")
 
-    // TODO add panel instance to frame, frame.add(pokemonPanel)
+    val game = new PokemonGameEngine
+    val panel = new MyJPanel(game)
+    frame.add(panel)
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
     frame.setResizable(false)
     frame.pack()
@@ -24,7 +26,7 @@ object Main {
 
     // Set focus
     frame.setVisible(true)
-    // TODO game.requestFocus(true)
+    panel.requestFocus(true)
 
 
   }

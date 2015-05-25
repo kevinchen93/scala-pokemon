@@ -9,10 +9,7 @@ import scala.compat.Platform
 /**
  * Created by kevinchen on 5/24/15.
  */
-class PokemonGameEngine extends JPanel with ActionListener {
-
-  val jf: JFrame
-  def tk = jf.getToolkit
+class PokemonGameEngine extends ActionListener {
 
   // PLAYER VARS
   var name = "Gold"
@@ -42,11 +39,11 @@ class PokemonGameEngine extends JPanel with ActionListener {
   val soundController = new SoundController()
   soundController.play(SoundController.title)
   val menu = new MenuScene(this)
-  setBackground(Color.BLACK)
-  setPreferredSize(new Dimension(480, 320))
-  addKeyListener(new MyKeyListener(this))
+
   val gameTimer = new Timer(350, this)
   gameTimer.start()
+
+
 
 
 
