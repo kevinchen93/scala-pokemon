@@ -73,13 +73,12 @@ class PokemonGameEngine extends JPanel with ActionListener {
       posX_tile = currentX_loc + 7
       posY_tile = currentY_loc + 4
 
-      pokemonparty = (new Monsters).create(25) :: pokemonparty
-//        (new Monsters).create(0),
-//        (new Monsters).create(0),
-//        (new Monsters).create(0),
-//        (new Monsters).create(0),
-//        (new Monsters).create(0)
-      )
+      pokemonparty = Monsters.create(25) :: pokemonparty
+      pokemonparty = Monsters.create(0) :: pokemonparty
+      pokemonparty = Monsters.create(0) :: pokemonparty
+      pokemonparty = Monsters.create(0) :: pokemonparty
+      pokemonparty = Monsters.create(0) :: pokemonparty
+      pokemonparty = Monsters.create(0) :: pokemonparty
       mainitems(0)(3) = potion
       money = 2000
     }

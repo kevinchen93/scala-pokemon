@@ -31,43 +31,245 @@ object Monsters {
   val statusPoisoned = 3
   val statusAsleep = 4
   val statusFrozen = 5
+
+  def create(n: Int): Monsters = {
+
+    def battler(num: String) = s"Graphics/Battlers/${num}.png"
+    def icon(num: String) = s"Graphics/Icons/icon${num}.png"
+
+    val monster = new Monsters
+
+    def setStats(monster: Monsters,
+                 name: String,
+                 level: Int,
+                 number: Int,
+                 backSprite: Image,
+                 frontSprite: Image,
+                 backSpriteShiny: Image,
+                 frontSpriteShiny: Image,
+                 partyIcon: Image,
+                 hp: Int,
+                 curHp: Int,
+                 exp: Int,
+                 curExp: Int,
+                 attack: Int,
+                 curAttack: Int,
+                 defense: Int,
+                 curDef: Int,
+                 spAttack: Int,
+                 spDef: Int,
+                 move1: String,
+                 move2: String,
+                 move3: String,
+                 move4: String): Unit = {
+      monster.name = name
+      monster.level = level
+      monster.number = number
+      monster._backSprite = backSprite
+      monster._frontSprite = frontSprite
+      monster.backSpriteShiny = backSpriteShiny
+      monster.frontSpriteShiny = frontSpriteShiny
+      monster.partyIcon = partyIcon
+      monster.hp = hp
+      monster.curHp = curHp
+      monster.exp = exp
+      monster.curExp = curExp
+      monster.attack = attack
+      monster.curAttack = curAttack
+      monster.defense = defense
+      monster.curDef = curDef
+      monster.spAttack = spAttack
+      monster.spDef = spDef
+      monster.move1 = move1
+      monster.move2 = move2
+      monster.move3 = move3
+      monster.move4 = move4
+
+    }
+
+    n match {
+
+      // Charmander
+      case 4 => {
+        setStats(monster, "Charmander", 5, n,
+          ImageUtils.createImage(battler("004b")),
+          ImageUtils.createImage(battler("004")),
+          ImageUtils.createImage(battler("004sb")),
+          ImageUtils.createImage(battler("004s")),
+          ImageUtils.createImage(icon("004")),
+          20, 20, 200, 0, 14, 14, 15, 15, 40, 10,
+          "Ember", "Scratch", "Tail Whip", "Fire Spin")
+        /*for(int x=0; x<16; x++) { weak[x]=false;strong[x]=false;}
+			weak[water]=true;
+			weak[ground]=true;
+			strong[grass]=true;
+			strong[steel]=true;
+			strong[bug]=true;
+			strong[ice]=true;*/
+      }
+
+      // Swinub
+      case 220 => {
+        setStats(monster, "Swinub", 3, n,
+          ImageUtils.createImage(battler("220b")),
+          ImageUtils.createImage(battler("220")),
+          ImageUtils.createImage(battler("220sb")),
+          ImageUtils.createImage(battler("220s")),
+          ImageUtils.createImage(icon("220")),
+          15, 15, 200, 0, 15, 15, 20, 20, 40, 10,
+          "Icy Wind", "Scratch", "Dig", "Growl")
+        /*for(int x=0; x<16; x++) {
+          weak[x]=false;
+          strong[x]=false;
+        }
+        weak[fire]=true;
+        weak[fighting]=true;
+        weak[steel]=true;
+        weak[rock]=true;
+        strong[dragon]=true;
+        strong[ground]=true;
+        strong[grass]=true;
+        strong[flying]=true;*/
+      }
+
+      // Totodile
+      case 158 => {
+        setStats(monster, "Totodile", 5, n,
+          ImageUtils.createImage(battler("158b")),
+          ImageUtils.createImage(battler("158")),
+          ImageUtils.createImage(battler("158sb")),
+          ImageUtils.createImage(battler("158s")),
+          ImageUtils.createImage(icon("158")),
+          25, 25, 113, 0, 16, 16, 30, 30, 40, 10,
+          "Water Gun", "Scratch", "Tail Whip", "Toxic")
+        /*for(int x=0; x<16; x++) {
+				weak[x]=false;
+				strong[x]=false;
+			}
+			weak[electric]=true;
+			weak[grass]=true;
+			strong[fire]=true;
+			strong[rock]=true;
+			strong[ground]=true;*/
+      }
+
+      // Pikachu
+      case 25 => {
+        setStats(monster, "Pickachu", 5, n,
+          ImageUtils.createImage(battler("025b")),
+          ImageUtils.createImage(battler("025")),
+          ImageUtils.createImage(battler("025sb")),
+          ImageUtils.createImage(battler("025s")),
+          ImageUtils.createImage(icon("025")),
+          23, 23, 200, 0, 12, 12, 10, 10, 40, 10,
+          "Thundershock", "Quick Attack", "Tail Whip", "Thunderwave")
+        /*for(int x=0; x<16; x++) {
+				weak[x]=false;
+				strong[x]=false;
+			}
+			weak[ground]=true;
+			weak[rock]=true;
+			strong[water]=true;
+			strong[flying]=true;*/
+      }
+
+      // Murkrow
+      case 198 => {
+        setStats(monster, "Murkrow", 4, n,
+          ImageUtils.createImage(battler("198b")),
+          ImageUtils.createImage(battler("198")),
+          ImageUtils.createImage(battler("198sb")),
+          ImageUtils.createImage(battler("198s")),
+          ImageUtils.createImage(icon("198")),
+          19, 19, 200, 0, 13, 13, 15, 15, 10, 10,
+          "Peck", "Pursuit", "Quick Attack", "Growl")
+
+        /*for(int x=0; x<16; x++) {
+				weak[x]=false;
+				strong[x]=false;
+			}
+			weak[electric]=true;
+			weak[ice]=true;
+			weak[rock]=true;
+			strong[grass]=true;
+			strong[fighting]=true;
+			strong[bug]=true;*/
+      }
+      case _ => {
+        println(s"TODO, ${Monsters.getClass.getSimpleName}.scala -- read in from file")
+        name = "MissingNo"
+        level = 255
+        number = 0
+        _backSprite = ImageUtils.createImage(battler("000b"))
+        _frontSprite = ImageUtils.createImage(battler("000"))
+        backSpriteShiny = ImageUtils.createImage(battler("000sb"))
+        frontSpriteShiny = ImageUtils.createImage(battler("000s"))
+        partyIcon = ImageUtils.createImage(icon("000"))
+        hp = 255
+        attack = 255
+        exp = 200
+        curExp = 0
+        curAttack = 255
+        defense = 255
+        curDef = 255
+        spAttack = 255
+        spDef = 255
+        move1 = "Sky Attack"
+        move2 = "Flamethrower"
+        move3 = "Tackle"
+        move4 = "Hyper Beam"
+        /*for(int x=0; x<16; x++) {
+          weak[x]=false;
+          strong[x]=false;
+        }
+        weak[electric]=true;
+        weak[ice]=true;
+        weak[rock]=true;
+        strong[grass]=true;
+        strong[fighting]=true;
+        strong[bug]=true;*/
+      }
+    }
+
+    monster
+  }
 }
 
 class Monsters {
 
-  var name: String
-  var level: Int
-  var number: Int
-  var hp: Int
-  var attack: Int
-  var defense: Int
-  var spAttack: Int
-  var spDef: Int
-  var spd: Int
+  var name: String = ""
+  var level: Int = 0
+  var number: Int = 0
+  var hp: Int = 0
+  var attack: Int = 0
+  var defense: Int = 0
+  var spAttack: Int = 0
+  var spDef: Int = 0
+  var spd: Int = 0
 
-  var baseHp: Int
-  var baseAttack: Int
-  var baseDef: Int
-  var baseSpAttack: Int
-  var baseSpDef: Int
-  var baseSpd: Int
+  var baseHp: Int = 0
+  var baseAttack: Int = 0
+  var baseDef: Int = 0
+  var baseSpAttack: Int = 0
+  var baseSpDef: Int = 0
+  var baseSpd: Int = 0
 
-  var curHp: Int
-  var curAttack: Int
-  var curDef: Int
-  var curSpAttack: Int
-  var curSpDef: Int
-  var curSpd: Int
+  var curHp: Int = 0
+  var curAttack: Int = 0
+  var curDef: Int = 0
+  var curSpAttack: Int = 0
+  var curSpDef: Int = 0
+  var curSpd: Int = 0
 
-  var evHp: Int
-  var evAttack: Int
-  var evDef: Int
-  var evSpAttack: Int
-  var evSpDef: Int
-  var evSpd: Int
+  var evHp: Int = 0
+  var evAttack: Int = 0
+  var evDef: Int = 0
+  var evSpAttack: Int = 0
+  var evSpDef: Int = 0
+  var evSpd: Int = 0
 
-  var exp: Double
-  var curExp: Double
+  var exp: Double = 0
+  var curExp: Double = 0
 
   // TODO fix setters
   def backSprite_=(sprite: Image): Unit = _backSprite = sprite
@@ -145,228 +347,6 @@ class Monsters {
     level += 1
     curExp = 0
     exp = math.pow(level, 3)
-  }
-
-  def create(n: Int): Unit = {
-
-    def battler(num: String) = s"Graphics/Battlers/${num}.png"
-    def icon(num: String) = s"Graphics/Icons/icon${num}.png"
-
-    n match {
-
-        // Charmander
-      case 4 => {
-        name = "Charmander"
-        level = 5
-        number = 4
-        _backSprite = ImageUtils.createImage(battler("220b"))
-        _frontSprite = ImageUtils.createImage(battler("220"))
-        backSpriteShiny = ImageUtils.createImage(battler("220sb"))
-        frontSpriteShiny = ImageUtils.createImage(battler("220s"))
-        partyIcon = ImageUtils.createImage(icon("220"))
-        hp = 15
-        curHp = 15
-        exp = 200
-        curExp = 0
-        attack = 15
-        curAttack = 15
-        defense = 20
-        curDef = 20
-        spAttack = 40
-        spDef = 10
-        move1 = "Icy Wind"
-        move2 = "Scratch"
-        move3 = "Dig"
-        move4 = "Growl"
-        /*for(int x=0; x<16; x++) {
-				weak[x]=false;
-				strong[x]=false;
-			}
-			weak[water]=true;
-			weak[ground]=true;
-			strong[grass]=true;
-			strong[steel]=true;
-			strong[bug]=true;
-			strong[ice]=true;*/
-      }
-
-        // Swinub
-      case 220 => {
-        name = "Swinub"
-        level = 3
-        number = 220
-        _backSprite = ImageUtils.createImage(battler("220b"))
-        _frontSprite = ImageUtils.createImage(battler("220"))
-        backSpriteShiny = ImageUtils.createImage(battler("220sb"))
-        frontSpriteShiny = ImageUtils.createImage(battler("220s"))
-        partyIcon = ImageUtils.createImage(icon("220"))
-        hp = 15
-        curHp = 15
-        exp = 200
-        curExp = 0
-        attack = 15
-        curAttack = 15
-        defense = 20
-        curDef = 20
-        spAttack = 40
-        spDef = 10
-        move1 = "Icy Wind"
-        move2 = "Scratch"
-        move3 = "Dig"
-        move4 = "Growl"
-        /*for(int x=0; x<16; x++) {
-          weak[x]=false;
-          strong[x]=false;
-        }
-        weak[fire]=true;
-        weak[fighting]=true;
-        weak[steel]=true;
-        weak[rock]=true;
-        strong[dragon]=true;
-        strong[ground]=true;
-        strong[grass]=true;
-        strong[flying]=true;*/
-      }
-
-        // Totodile
-      case 158 => {
-        name = "Totodile"
-        level = 5
-        number = 158
-        _backSprite = ImageUtils.createImage(battler("158b"))
-        _frontSprite = ImageUtils.createImage(battler("158"))
-        backSpriteShiny = ImageUtils.createImage(battler("158sb"))
-        frontSpriteShiny = ImageUtils.createImage(battler("158s"))
-        partyIcon = ImageUtils.createImage(icon("158"))
-        hp = 25
-        curHp = 25
-        exp = 113
-        curExp = 0
-        attack = 16
-        curAttack = 16
-        defense = 30
-        curDef = 30
-        spAttack = 40
-        spDef = 10
-        move1 = "Water Gun"
-        move2 = "Scratch"
-        move3 = "Tail Whip"
-        move4 = "Toxic"
-        /*for(int x=0; x<16; x++) {
-				weak[x]=false;
-				strong[x]=false;
-			}
-			weak[electric]=true;
-			weak[grass]=true;
-			strong[fire]=true;
-			strong[rock]=true;
-			strong[ground]=true;*/
-      }
-
-        // Pikachu
-      case 25 => {
-        name = "Pikachu"
-        level = 5
-        number = 25
-        _backSprite = ImageUtils.createImage(battler("025b"))
-        _frontSprite = ImageUtils.createImage(battler("025"))
-        backSpriteShiny = ImageUtils.createImage(battler("025sb"))
-        frontSpriteShiny = ImageUtils.createImage(battler("025s"))
-        partyIcon = ImageUtils.createImage(icon("025"))
-        hp = 23
-        curHp = 23
-        exp = 200
-        curExp = 0
-        attack = 12
-        curAttack = 12
-        defense = 10
-        curDef = 10
-        spAttack = 40
-        spDef = 10
-        move1 = "Thundershock"
-        move2 = "Quick Attack"
-        move3 = "Tail Whip"
-        move4 = "Thunderwave"
-        /*for(int x=0; x<16; x++) {
-				weak[x]=false;
-				strong[x]=false;
-			}
-			weak[ground]=true;
-			weak[rock]=true;
-			strong[water]=true;
-			strong[flying]=true;*/
-      }
-
-        // Murkrow
-      case 198 => {
-        name = "Murkrow"
-        level = 4
-        number = 198
-        _backSprite = ImageUtils.createImage(battler("198b"))
-        _frontSprite = ImageUtils.createImage(battler("198"))
-        backSpriteShiny = ImageUtils.createImage(battler("198sb"))
-        frontSpriteShiny = ImageUtils.createImage(battler("198s"))
-        partyIcon = ImageUtils.createImage(icon("198"))
-        hp = 19
-        curHp = 19
-        exp = 200
-        curExp = 0
-        attack = 13
-        curAttack = 13
-        defense = 15
-        curDef = 15
-        spAttack = 10
-        spDef = 10
-        move1 = "Peck"
-        move2 = "Pursuit"
-        move3 = "Quick Attack"
-        move4 = "Growl"
-        /*for(int x=0; x<16; x++) {
-				weak[x]=false;
-				strong[x]=false;
-			}
-			weak[electric]=true;
-			weak[ice]=true;
-			weak[rock]=true;
-			strong[grass]=true;
-			strong[fighting]=true;
-			strong[bug]=true;*/
-      }
-      case _ => {
-        println(s"TODO, ${Monsters.getClass.getSimpleName}.scala -- read in from file")
-        name = "MissingNo"
-        level = 255
-        number = 0
-        _backSprite = ImageUtils.createImage(battler("000b"))
-        _frontSprite = ImageUtils.createImage(battler("000"))
-        backSpriteShiny = ImageUtils.createImage(battler("000sb"))
-        frontSpriteShiny = ImageUtils.createImage(battler("000s"))
-        partyIcon = ImageUtils.createImage(icon("000"))
-        hp = 255
-        attack = 255
-        exp = 200
-        curExp = 0
-        curAttack = 255
-        defense = 255
-        curDef = 255
-        spAttack = 255
-        spDef = 255
-        move1 = "Sky Attack"
-        move2 = "Flamethrower"
-        move3 = "Tackle"
-        move4 = "Hyper Beam"
-        /*for(int x=0; x<16; x++) {
-          weak[x]=false;
-          strong[x]=false;
-        }
-        weak[electric]=true;
-        weak[ice]=true;
-        weak[rock]=true;
-        strong[grass]=true;
-        strong[fighting]=true;
-        strong[bug]=true;*/
-      }
-    }
   }
 
   def loadPokemon() = {
