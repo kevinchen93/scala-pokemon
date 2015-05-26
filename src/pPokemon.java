@@ -84,8 +84,9 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
     private int posY_tile; //Location of player in terms of columns
     private boolean movable = true;
     private static Random randGen = new Random();
-    private int stepscount = 0;
     public int badges = 0;
+
+    private int stepscount = 0;
     public int money = 2000;
     public long timePlayed = 0;
     public long currentTime = 0;

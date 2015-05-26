@@ -17,4 +17,10 @@ object Sprites {
   lazy val playerRight = ImageUtils.createImage("Graphics/Characters/Player/Right.png")
   lazy val playerRight1 = ImageUtils.createImage("Graphics/Characters/Player/Right1.png")
   lazy val playerRight2 = ImageUtils.createImage("Graphics/Characters/Player/Right2.png")
+
+  lazy val titlescreen = ImageUtils.createImage("Graphics/Titles/Pic_2.png")
+  lazy val start_symbol = ImageUtils.createImage("Graphics/Titles/Start.png")
+  lazy val continuescreen = ImageUtils.createImage("Graphics/Pictures/Continue.png")
+  lazy val arrow = ImageUtils.createImage("Graphics/Pictures/Arrow.png")
+  lazy val messagebox = ImageUtils.createImage("Graphics/Pictures/Message_Text.png")
 }

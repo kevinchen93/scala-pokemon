@@ -26,6 +26,8 @@ class PokemonGameEngine extends ActionListener {
   var mapTilesX: Int
   var mapTilesY: Int
 
+  var startVisible = true
+
   var inMenu = false
   var inBattle = false
   var movable = true
@@ -43,8 +45,7 @@ class PokemonGameEngine extends ActionListener {
   val gameTimer = new Timer(350, this)
   gameTimer.start()
 
-
-
+  val playerController = new PlayerController(this)
 
 
   sealed trait Direction

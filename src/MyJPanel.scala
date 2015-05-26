@@ -10,30 +10,35 @@ class MyJPanel(game: PokemonGameEngine) extends JPanel {
   setBackground(Color.BLACK)
   setPreferredSize(new Dimension(480, 320))
   addKeyListener(new MyKeyListener(game))
-  
+
   override def paintComponent(g: Graphics): Unit = {
     super.paintComponent(g)
+
+
 
     val g2: Graphics2D = g.asInstanceOf[Graphics2D]
     val at: AffineTransform = new AffineTransform
     g2.setTransform(at)
     if (game.atTitle) {
-      g.drawImage(game.titlescreen, 0, 0, null)
-      if (game.start_visible) {
-        g.drawImage(game.start_symbol, 0, 260, null)
+      g.drawImage(Sprites.titlescreen, 0, 0, null)
+      if (game.startVisible) {
+        g.drawImage(Sprites.start_symbol, 0, 260, null)
       }
     }
     else if (game.atContinueScreen) {
-      g.drawImage(game.continuescreen, 0, 0, null)
+      g.drawImage(Sprites.continuescreen, 0, 0, null)
       game.concurrentMenuItem match {
-        case 0 => g.drawImage(arrow, 13, 20, null)
-        case 1 => g.drawImage(arrow, 13, 52, null)
-        case 2 => g.drawImage(arrow, 13, 84, null)
+        case 0 => g.drawImage(Sprites.arrow, 13, 20, null)
+        case 1 => g.drawImage(Sprites.arrow, 13, 52, null)
+        case 2 => g.drawImage(Sprites.arrow, 13, 84, null)
       }
     }
     else {
+
+      val playerController = game.playerController
       if (game.inBattle) {
-        g2.setClip(new Rectangle(posX - 240, posY - 160, posX + 480, posY + 320))
+
+        g2.setClip(new Rectangle(playerController.posX - 240, posY - 160, posX + 480, posY + 320))
         g2.translate(offsetX - (currentX_loc * 32), offsetY - (currentY_loc * 32))
         for (y <- 1 to mapTilesY) {
           for (x <- 1 to mapTilesX) {
@@ -77,8 +82,8 @@ class MyJPanel(game: PokemonGameEngine) extends JPanel {
 
         // Player sprites
         g2.setTransform(at)
-        g.drawImage(gold.getSprite, posX, posY, null)
-        g.setFont(pokefont)
+        g.drawImage(game.gold.sprite, posX, posY, null)
+        g.setFont(game.pokefont)
         g.setColor(Color.WHITE)
         g.drawString("" + posX_tile + "," + posY_tile, 10, 25)
         showMessageBox(g)
