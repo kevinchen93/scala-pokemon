@@ -29,7 +29,6 @@ class PokemonGameEngine extends ActionListener {
   var gameStarted = false
   var startVisible = true
 
-  var inMenu = false
   var inBattle = false
   var movable = true
   var walking = false
@@ -41,7 +40,10 @@ class PokemonGameEngine extends ActionListener {
   val soundController = new SoundController()
   soundController.play(SoundController.title)
 
+  // MENU ITEMS
+  var inMenu = false
   val menu = new MenuScene(this)
+  var disable_start = false
 
   val gameTimer = new Timer(350, this)
   gameTimer.start()
@@ -123,7 +125,7 @@ class PokemonGameEngine extends ActionListener {
       // todo player should be in PlayerController
       gold.x = playerController.posX_tile
       gold.y = playerController.posY_tile
-      
+
 
     } else {
       startVisible = !startVisible
@@ -149,7 +151,7 @@ class PokemonGameEngine extends ActionListener {
         wait(1)
         inBattle = true
         disable_start = true
-        battleController.encounter = new BattleScene(this, pokemonparty, wildPokemon, items)
+        battleController.encounter = new BattleScene(this, pokemonparty, wildPokemon)
         stepscount = 0
         try {
           Thread.sleep(500)

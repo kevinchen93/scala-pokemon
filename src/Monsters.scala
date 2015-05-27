@@ -32,6 +32,13 @@ object Monsters {
   val statusAsleep = 4
   val statusFrozen = 5
 
+  lazy val statusPAR = ImageUtils.createImage("Graphics/Pictures/StatusPAR.png")
+  lazy val statusBRN = ImageUtils.createImage("Graphics/Pictures/StatusBRN.png")
+  lazy val statusPSN = ImageUtils.createImage("Graphics/Pictures/StatusPSN.png")
+  lazy val statusSLP = ImageUtils.createImage("Graphics/Pictures/StatusSLP.png")
+  lazy val statusFRZ = ImageUtils.createImage("Graphics/Pictures/StatusFRZ.png")
+
+
   def create(n: Int): Monsters = {
 
     def battler(num: String) = s"Graphics/Battlers/${num}.png"
@@ -294,6 +301,19 @@ class Monsters {
   private var weak = new Array[Boolean](16)
   private var strong = new Array[Boolean](16)
   private var shiny = false
+
+  def statusImage(): Image = {
+    statusEffect match {
+      case Monsters.statusParalyzed => Monsters.statusPAR
+      case Monsters.statusBurned => Monsters.statusBRN
+      case Monsters.statusPoisoned => Monsters.statusPSN
+      case Monsters.statusAsleep => Monsters.statusSLP
+      case Monsters.statusFrozen => Monsters.statusFRZ
+    }
+    null
+  }
+
+  override def toString: String = s"Pokemon: $name Level: $level HP: $curHp / $hp"
 
   def unaffected = statusEffect == Monsters.statusUnaffected
 

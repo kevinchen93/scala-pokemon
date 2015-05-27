@@ -38,4 +38,10 @@ class SoundController {
     currentBGM = x
     currentBGM.start()
   }
+
+  def endBattleMusic(): Unit = {
+    if (currentBGM != null) currentBGM.stop()
+    currentBGM = lastBGM
+    currentBGM.start()
+  }
 }

@@ -23,4 +23,9 @@ object Sprites {
   lazy val continuescreen = ImageUtils.createImage("Graphics/Pictures/Continue.png")
   lazy val arrow = ImageUtils.createImage("Graphics/Pictures/Arrow.png")
   lazy val messagebox = ImageUtils.createImage("Graphics/Pictures/Message_Text.png")
+
+  // backgrounds
+  lazy val BG = ImageUtils.createImage("Graphics/Pictures/BG.png")
+  lazy val battleMainBG = ImageUtils.createImage("Graphics/Pictures/Battle.png")
+  lazy val battleFightBG = ImageUtils.createImage("Graphics/Pictures/Battle2.png")
 }
