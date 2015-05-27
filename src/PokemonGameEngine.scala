@@ -11,6 +11,10 @@ import scala.compat.Platform
  */
 class PokemonGameEngine extends ActionListener {
 
+  // DEBUG VARS
+  var debugNoBattle = false
+  var debugNoClip = false
+
   // PLAYER VARS
   var name = "Gold"
 
@@ -36,12 +40,16 @@ class PokemonGameEngine extends ActionListener {
 
   val soundController = new SoundController()
   soundController.play(SoundController.title)
+
   val menu = new MenuScene(this)
 
   val gameTimer = new Timer(350, this)
   gameTimer.start()
 
+  var elapsedSeconds = 0
+
   val playerController = new PlayerController(this)
+  val battleController = new BattleController(this)
 
   var timePlayed: Long = 0
 
@@ -92,8 +100,68 @@ class PokemonGameEngine extends ActionListener {
     timePlayed = Platform.currentTime
   }
 
+  def wait(n: Int): Unit = {
+    var t0: Long = 0L
+    var t1: Long = 0L
+    t0 = System.currentTimeMillis
+    do {
+      t1 = System.currentTimeMillis
+    } while ((t1 - t0) < (n * 1000))
+  }
+
   override def actionPerformed(e: ActionEvent): Unit = {
     val currentTime = System.currentTimeMillis()
+    if (gameStarted) {
+
+      // process battle, check for fainted pokemon
+      if (inBattle) {
+        battleController.checkForFaintedPokemon()
+      }
+
+      elapsedSeconds = (currentTime / 1000).toInt
+
+      // todo player should be in PlayerController
+      gold.x = playerController.posX_tile
+      gold.y = playerController.posY_tile
+      
+
+    } else {
+      startVisible = !startVisible
+    }
+    repaint
+  }
+
+  // wild pokemon encounter check
+  def checkBattle(): Unit = {
+    val r = ((5 - 1) * Math.random + 1).toInt
+    val rndwildmodify = randGen.nextInt(22) + 11
+    if (!debugNoBattle) {
+      if (stepscount >= rndwildmodify) {
+        soundController.play(SoundController.battleBGM)
+        var wildPokemon: Monsters = null
+        r match {
+          case 1 => wildPokemon = Monsters.create(198) // wild Murkrow
+          case 2 => wildPokemon = Monsters.create(4) // wild Charmander
+          case 3 => wildPokemon = Monsters.create(25) // wild Pikachu
+          case 4 => wildPokemon = Monsters.create(220) // wild Swinub
+          case _ => wildPokemon = Monsters.create(158) // wild Totodile
+        }
+        wait(1)
+        inBattle = true
+        disable_start = true
+        battleController.encounter = new BattleScene(this, pokemonparty, wildPokemon, items)
+        stepscount = 0
+        try {
+          Thread.sleep(500)
+        }
+        catch {
+          case e: InterruptedException => {
+          }
+        }
+
+      }
+    }
+
   }
 
 

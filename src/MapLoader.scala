@@ -36,7 +36,6 @@ class MapLoader(game: PokemonGameEngine) {
     dis.close()
   }
 
-
   def loadMap(map: String): Unit = {
     try {
 

@@ -24,44 +24,15 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
     //-----------------------------------------------------------------
     // Window and Window Accesories
     //-----------------------------------------------------------------
-    public static JFrame jf;
-    public Toolkit tk = jf.getToolkit();
-    private javax.swing.Timer gameTimer;
-    private Font pokefont = new Font("pokesl1", Font.PLAIN, 18);
-    private Image titlescreen = tk.createImage(getClass().getResource("Graphics/Titles/Pic_2.png"));
-    private Image start_symbol = tk.createImage(getClass().getResource("Graphics/Titles/Start.png"));
-    private Image continuescreen = tk.createImage(getClass().getResource("Graphics/Pictures/Continue.png"));
-    private boolean atTitle = true;
-    private boolean atContinueScreen = false;
-    private boolean start_visible = true;
-    private boolean gamestarted = false;
     private int offsetX = 0, offsetY = 0;
     private int TILE_WIDTH_PIXELS = 32;
     private int TILE_HEIGHT_PIXELS = 32;
     private int concurrentMenuItem = 0;
-    public long seconds = 0;
-    private MidiPlayer title = new MidiPlayer("Audio/BGM/Title.mid", true);
-    private MidiPlayer continuebgm = new MidiPlayer("Audio/BGM/Continue.mid", true);
     //-----------------------------------------------------------------
 
     //-----------------------------------------------------------------
     // Player Variables
     //-----------------------------------------------------------------
-    public String name = "Gold";
-    private Image player = tk.createImage(getClass().getResource("Graphics/Characters/Player/Down.png"));
-    private Image playerUp = tk.createImage(getClass().getResource("Graphics/Characters/Player/Up.png"));
-    private Image playerUp1 = tk.createImage(getClass().getResource("Graphics/Characters/Player/Up1.png"));
-    private Image playerUp2 = tk.createImage(getClass().getResource("Graphics/Characters/Player/Up2.png"));
-    private Image playerDown = tk.createImage(getClass().getResource("Graphics/Characters/Player/Down.png"));
-    private Image playerDown1 = tk.createImage(getClass().getResource("Graphics/Characters/Player/Down1.png"));
-    private Image playerDown2 = tk.createImage(getClass().getResource("Graphics/Characters/Player/Down2.png"));
-    private Image playerLeft = tk.createImage(getClass().getResource("Graphics/Characters/Player/Left.png"));
-    private Image playerLeft1 = tk.createImage(getClass().getResource("Graphics/Characters/Player/Left1.png"));
-    private Image playerLeft2 = tk.createImage(getClass().getResource("Graphics/Characters/Player/Left2.png"));
-    private Image playerRight = tk.createImage(getClass().getResource("Graphics/Characters/Player/Right.png"));
-    private Image playerRight1 = tk.createImage(getClass().getResource("Graphics/Characters/Player/Right1.png"));
-    private Image playerRight2 = tk.createImage(getClass().getResource("Graphics/Characters/Player/Right2.png"));
-    public Player gold = new Player(10, 9, name, player);
     private int movespritepixels = 0;
     private boolean walking = false;
     private boolean up = false;
@@ -76,29 +47,17 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
     private boolean collision = false;
     private boolean footsprite = false;
     private String text = "";
-    private int posX = 224; //Multiple of 32
-    private int posY = 118; //-10 because height is 42, not 32.
-    private int currentX_loc; //Starting Location of player in terms of rows
-    private int currentY_loc; //Starting Location of player in terms of columns
-    private int posX_tile; //Location of player in terms of rows
-    private int posY_tile; //Location of player in terms of columns
     private boolean movable = true;
     private static Random randGen = new Random();
     public int badges = 0;
 
     private int stepscount = 0;
     public int money = 2000;
+    public long seconds = 0;
     public long timePlayed = 0;
     public long currentTime = 0;
     public Monsters[][] pokedex = new Monsters[493][40];
     public Monsters wildPokemon = new Monsters();
-    public Monsters playerPokemon1 = new Monsters();
-    public Monsters playerPokemon2 = new Monsters();
-    public Monsters playerPokemon3 = new Monsters();
-    public Monsters playerPokemon4 = new Monsters();
-    public Monsters playerPokemon5 = new Monsters();
-    public Monsters playerPokemon6 = new Monsters();
-    public Monsters pokemonparty[] = new Monsters[6];
     public Items[] items = new Items[2];
     public Items[][] mainitems = new Items[30][99];
     public Items[][] balls = new Items[30][99];
@@ -206,35 +165,7 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
     public void actionPerformed(ActionEvent e) {
         currentTime = java.lang.System.currentTimeMillis();
         if (gamestarted == true) {
-            //-----------------------------------------------------------------
-            // Battle Scene
-            //-----------------------------------------------------------------
-            if (inBattle == true) {
-                if (encounter.playerPokemon.getCurrentHP() <= 0) {
-                    //Whited Out
-                    System.out.println("Player Pokemon has fainted");
-                    System.out.println(gold.getName() + " is all out of usable Pokemon!");
-                    System.out.println(gold.getName() + " whited out.");
-                    encounter.whiteOut();
-                    currentX_loc += 42 - posX_tile;
-                    currentY_loc += 107 - posY_tile;
-                    posX_tile = 42;
-                    posY_tile = 107;
-                    gold.setSprite(playerUp);
-                    lastdir = 1;
-                    playerPokemon1.healPokemon();
-                    changeBGM(pokecenter);
-                }
-                if (encounter.enemyPokemon.getCurrentHP() <= 0) {
-                    encounter.playerWon = true;
-                    System.out.println("Wild Pokemon has fainted");
-                    encounter.Win();
-                }
-                if (encounter.playerTurn == false) {
-                    wait(1);
-                    encounter.enemyTurn();
-                }
-            }
+
             //-----------------------------------------------------------------
             seconds = (currentTime - timePlayed) / 1000;
             gold.setCurrentX(posX_tile);
@@ -865,132 +796,6 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
                 }
             }
         }
-    }
-
-    //-----------------------------------------------------------------
-    // Main
-    //-----------------------------------------------------------------
-
-    public void startgame(boolean continued) {
-        loadTileSet();
-        loadMap(currentMapName);
-        if (continued == true) {
-            loadGame();
-            mainitems[0][3] = potion;
-        } else {
-            name = "Gold";
-            gold.setName(name);
-            gold.createTrainerID();
-            gold.createSecretID();
-            currentX_loc = 6 - 7;
-            currentY_loc = 67 - 4;
-            posX_tile = currentX_loc + 7;
-            posY_tile = currentY_loc + 4;
-            playerPokemon1.create(25);
-            playerPokemon2.create(0);
-            playerPokemon3.create(0);
-            playerPokemon4.create(0);
-            playerPokemon5.create(0);
-            playerPokemon6.create(0);
-            pokemonparty[0] = playerPokemon1;
-            pokemonparty[1] = playerPokemon2;
-            pokemonparty[2] = playerPokemon3;
-            pokemonparty[3] = playerPokemon4;
-            pokemonparty[4] = playerPokemon5;
-            pokemonparty[5] = playerPokemon6;
-            mainitems[0][3] = potion;
-            money = 2000;
-        }
-        currentBGM.stop();
-        currentBGM = cherrygrovecity;
-        currentBGM.start();
-        player = playerDown;
-        atTitle = false;
-        atContinueScreen = false;
-        gamestarted = true;
-        movable = true;
-        timePlayed = java.lang.System.currentTimeMillis();
-    }
-
-
-    public void loadTileSet() {
-        File file = new File("Data/Tiles.tileset");
-        FileInputStream fis = null;
-        BufferedInputStream bis = null;
-        DataInputStream dis = null;
-        try {
-            fis = new FileInputStream(file);
-            bis = new BufferedInputStream(fis);
-            dis = new DataInputStream(bis);
-            for (int i = 0; i < tileset.length; i++) {
-                tileset[i] = tk.createImage(getClass().getResource("Graphics/" + dis.readLine()));
-            }
-            fis.close();
-            bis.close();
-            dis.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void loadMap(String map) {
-        try {
-            float r = 1;
-            float g = 1;
-            float b = 1;
-            float h = 0;
-            float s = 1;
-            boolean hasColourEffect = false;
-            BufferedReader reader = new BufferedReader(new FileReader(map));
-            String line = reader.readLine();
-            StringTokenizer tokens = new StringTokenizer(line);
-            int width = Integer.parseInt(tokens.nextToken());
-            int height = Integer.parseInt(tokens.nextToken());
-            mapTilesX = width;
-            mapTilesY = height;
-            String tileset = tokens.nextToken();
-            line = reader.readLine();
-            tokens = new StringTokenizer(line);
-            if (tokens.nextToken().equalsIgnoreCase("colorization")) {
-                hasColourEffect = true;
-                r = Float.parseFloat(tokens.nextToken());
-                g = Float.parseFloat(tokens.nextToken());
-                b = Float.parseFloat(tokens.nextToken());
-                h = Float.parseFloat(tokens.nextToken());
-                s = Float.parseFloat(tokens.nextToken());
-            }
-            while (!line.equals(".")) {
-                line = reader.readLine();
-            }
-            for (int layers = 0; layers < 2; layers++) {
-                line = reader.readLine();
-                tokens = new StringTokenizer(line);
-                for (int y = 0; y < (width * height); y++) {
-                    String code = tokens.nextToken();
-                    if (layers == 0) {
-                        currentMap0[y] = Integer.parseInt(code);
-                    } else if (layers == 1) {
-                        currentMap1[y] = Integer.parseInt(code);
-                    }
-                }
-            }
-            reader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException i) {
-            i.printStackTrace();
-        }
-    }
-
-    public static void wait(int n) {
-        long t0, t1;
-        t0 = System.currentTimeMillis();
-        do {
-            t1 = System.currentTimeMillis();
-        }
-        while ((t1 - t0) < (n * 1000));
     }
 
     public static void main(String[] Args) {
