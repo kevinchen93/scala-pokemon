@@ -177,19 +177,7 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
             checkBattle();
             //Teleport Code
             transfer();
-            //Can't walk outside of the Map Array
-            if (posX_tile <= 0) {
-                movable_left = false;
-            }
-            if (posX_tile >= mapTilesX - 1) {
-                movable_right = false;
-            }
-            if (posY_tile <= 0) {
-                movable_up = false;
-            }
-            if (posY_tile >= mapTilesY - 1) {
-                movable_down = false;
-            }
+
             //Crashtesting with NPC's
             movable_up = true;
             movable_down = true;
@@ -241,19 +229,7 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
             }
             //Movement Scrolling
             if (walking == true) {
-                movespritepixels++;
-                if (up == true && movable_up == true) {
-                    offsetY += 2;
-                }
-                if (down == true && movable_down == true) {
-                    offsetY -= 2;
-                }
-                if (left == true && movable_left == true) {
-                    offsetX += 2;
-                }
-                if (right == true && movable_right == true) {
-                    offsetX -= 2;
-                }
+
             }
             //Movement Reset
             if (movespritepixels >= 16) {

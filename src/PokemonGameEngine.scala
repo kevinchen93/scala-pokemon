@@ -120,12 +120,24 @@ class PokemonGameEngine extends ActionListener {
         battleController.checkForFaintedPokemon()
       }
 
+      // update clock
       elapsedSeconds = (currentTime / 1000).toInt
 
       // todo player should be in PlayerController
       gold.x = playerController.posX_tile
       gold.y = playerController.posY_tile
 
+      // check for wild pokemon encounters
+      checkBattle()
+
+      // Teleport code
+      transfer()
+
+      // can't walk outside map array
+      playerController.updateMobilityConstraints()
+      playerController.move()
+      playerController.movementReset()
+      playerController.spriteAnimations()
 
     } else {
       startVisible = !startVisible
