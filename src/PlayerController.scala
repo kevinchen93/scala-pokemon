@@ -1,4 +1,5 @@
-import java.awt.{Color, Graphics}
+import java.awt.geom.AffineTransform
+import java.awt.{Graphics2D, Color, Graphics}
 
 /**
  * Created by kevinchen on 5/26/15.
@@ -71,7 +72,37 @@ class PlayerController(game: PokemonGameEngine) {
   )
 
   def paintComponent(g: Graphics): Unit = {
-    // TODO
+    val g2 = g.asInstanceOf[Graphics2D]
+    val at = new AffineTransform()
+    g2.setTransform(at)
+    if (game.atTitle) {
+      g.drawImage(Sprites.titlescreen, 0, 0, null)
+      if (game.startVisible) {
+        g.drawImage(Sprites.start_symbol, 0, 260, null)
+      }
+    }
+
+    else if (game.atContinueScreen) {
+      g.drawImage(Sprites.continuescreen, 0, 0, null)
+      game.concurrentMenuItem match {
+        case 0 => g.drawImage(Sprites.arrow, 13, 20, null)
+        case 1 => g.drawImage(Sprites.arrow, 13, 52, null)
+        case 2 => g.drawImage(Sprites.arrow, 13, 84, null)
+      }
+    }
+
+    else {
+      if (game.inBattle) {
+        game.battleController.encounter.paint(g)
+      }
+      else {
+        // TODO
+      }
+      if (game.inMenu) {
+        game.menu.paint(g)
+      }
+    }
+
   }
 
   def showMessageBox(g: Graphics) {
