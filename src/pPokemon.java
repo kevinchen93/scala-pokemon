@@ -252,64 +252,7 @@ public class pPokemon extends JPanel implements KeyListener, ActionListener {
 
     }
 
-    public void showMessageBox(Graphics g) {
-        g.setColor(Color.BLACK);
-        //Trainer Pokemon Battles
-	 	/*if (talkable == true) {
-	 		for (int i = 0; i < currentMapNPC.length; i++) {
-	 			if (currentMapNPC[i].getTalkable(gold) == true) {
-	 				lastBGM = currentBGM;
-			 		currentBGM.stop();
-			 		currentBGM = battleBGM;
-			 		currentBGM.start();
-			 		//Trainer
-			 		if (currentMapNPC[i] == bird_keeper1) {
-			 			wildPokemon.create(198);
-			 			trainerparty[0] = wildPokemon;
-			 		}
-			 		//Trainer
-			 		wait(1);
-			 		inBattle = true;
-			 		disable_start = true;
-			 		trainerencounter = new TrainerBattleScene(this,currentMapNPC[i],pokemonparty,trainerparty,items);
-			 		try{Thread.sleep(500);}
-		    		catch(InterruptedException e){}
-	 			}
-	 		}
-     	}*/
-        //NPC Talking
-        if (talkable == true) {
-            for (int i = 0; i < currentMapNPC.length; i++) {
-                if (currentMapNPC[i].getTalkable(gold) == true) {
-                    text = currentMapNPC[i].getText(gold);
-                }
-            }
-        }
-        if (talkable == true && movable_up == false) {
-            if (gold.getSprite() == playerUp) {
-                g.drawImage(messagebox, 0, 0, null);
-                g.drawString(text, 25, 255);
-            }
-        }
-        if (talkable == true && movable_down == false) {
-            if (gold.getSprite() == playerDown) {
-                g.drawImage(messagebox, 0, 0, null);
-                g.drawString(text, 25, 255);
-            }
-        }
-        if (talkable == true && movable_left == false) {
-            if (gold.getSprite() == playerLeft) {
-                g.drawImage(messagebox, 0, 0, null);
-                g.drawString(text, 25, 255);
-            }
-        }
-        if (talkable == true && movable_right == false) {
-            if (gold.getSprite() == playerRight) {
-                g.drawImage(messagebox, 0, 0, null);
-                g.drawString(text, 25, 255);
-            }
-        }
-    }
+
 
     //-----------------------------------------------------------------
     // Battle Code

@@ -1,3 +1,5 @@
+import java.awt.{Color, Graphics}
+
 /**
  * Created by kevinchen on 5/26/15.
  */
@@ -14,6 +16,7 @@ class PlayerController(game: PokemonGameEngine) {
   var movable_left = true
   var movable_right = true
   var disable_talk = true
+  var talkable = false
   private var collision = false
   private var footsprite = false
 
@@ -66,6 +69,47 @@ class PlayerController(game: PokemonGameEngine) {
     NPC.cherrygroveCitizen2,
     NPC.cherrygroveCitizen3
   )
+
+  def paintComponent(g: Graphics): Unit = {
+    // TODO
+  }
+
+  def showMessageBox(g: Graphics) {
+    g.setColor(Color.BLACK)
+    val gold = game.gold
+    var text: String = ""
+    if (talkable) {
+      for (i <- currentMapNPC.indices) {
+        if (currentMapNPC(i).talkable(gold)) {
+          text = currentMapNPC(i).text(gold)
+        }
+      }
+    }
+    if (talkable && !movable_up) {
+      if (gold.sprite == Sprites.playerUp) {
+        g.drawImage(Sprites.messagebox, 0, 0, null)
+        g.drawString(text, 25, 255)
+      }
+    }
+    if (talkable && !movable_down) {
+      if (gold.sprite == Sprites.playerDown) {
+        g.drawImage(Sprites.messagebox, 0, 0, null)
+        g.drawString(text, 25, 255)
+      }
+    }
+    if (talkable && !movable_left) {
+      if (gold.sprite == Sprites.playerLeft) {
+        g.drawImage(Sprites.messagebox, 0, 0, null)
+        g.drawString(text, 25, 255)
+      }
+    }
+    if (talkable && !movable_right) {
+      if (gold.sprite == Sprites.playerRight) {
+        g.drawImage(Sprites.messagebox, 0, 0, null)
+        g.drawString(text, 25, 255)
+      }
+    }
+  }
 
   def transfer(): Unit = {
 

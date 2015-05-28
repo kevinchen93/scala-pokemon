@@ -1,5 +1,5 @@
 import java.awt.event.{ActionEvent, ActionListener}
-import java.awt.{Image, Dimension, Color}
+import java.awt.{Graphics, Image, Dimension, Color}
 import java.io._
 import java.util.StringTokenizer
 import javax.swing.{Timer, JFrame, JPanel}
@@ -9,7 +9,7 @@ import scala.compat.Platform
 /**
  * Created by kevinchen on 5/24/15.
  */
-class PokemonGameEngine extends ActionListener {
+class PokemonGameEngine extends JPanel with ActionListener {
 
   // DEBUG VARS
   var debugNoBattle = false
@@ -111,6 +111,11 @@ class PokemonGameEngine extends ActionListener {
     } while ((t1 - t0) < (n * 1000))
   }
 
+  override def paintComponent(g: Graphics): Unit = {
+    super.paintComponent(g)
+    playerController.paintComponent(g)
+  }
+
   override def actionPerformed(e: ActionEvent): Unit = {
     val currentTime = System.currentTimeMillis()
     if (gameStarted) {
@@ -152,18 +157,18 @@ class PokemonGameEngine extends ActionListener {
     if (!debugNoBattle) {
       if (stepscount >= rndwildmodify) {
         soundController.play(SoundController.battleBGM)
-        var wildPokemon: Monsters = null
+        var wildPokemon: List[Monsters] = null
         r match {
-          case 1 => wildPokemon = Monsters.create(198) // wild Murkrow
-          case 2 => wildPokemon = Monsters.create(4) // wild Charmander
-          case 3 => wildPokemon = Monsters.create(25) // wild Pikachu
-          case 4 => wildPokemon = Monsters.create(220) // wild Swinub
-          case _ => wildPokemon = Monsters.create(158) // wild Totodile
+          case 1 => wildPokemon = List(Monsters.create(198)) // wild Murkrow
+          case 2 => wildPokemon = List(Monsters.create(4)) // wild Charmander
+          case 3 => wildPokemon = List(Monsters.create(25)) // wild Pikachu
+          case 4 => wildPokemon = List(Monsters.create(220)) // wild Swinub
+          case _ => wildPokemon = List(Monsters.create(158)) // wild Totodile
         }
         wait(1)
         inBattle = true
         disable_start = true
-        battleController.encounter = new BattleScene(this, pokemonparty, wildPokemon)
+        battleController.encounter = new WildBattleScene(this, pokemonparty, wildPokemon)
         stepscount = 0
         try {
           Thread.sleep(500)

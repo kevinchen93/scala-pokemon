@@ -10,8 +10,7 @@ object Main {
     val frame = new JFrame("Pokemon: Metallic Silver")
 
     val game = new PokemonGameEngine
-    val panel = new MyJPanel(game)
-    frame.add(panel)
+    frame.add(game)
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
     frame.setResizable(false)
     frame.pack()
@@ -26,7 +25,7 @@ object Main {
 
     // Set focus
     frame.setVisible(true)
-    panel.requestFocus(true)
+    game.requestFocus(true)
 
 
   }
