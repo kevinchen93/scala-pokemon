@@ -135,7 +135,7 @@ class PokemonGameEngine extends ActionListener {
 
       // can't walk outside map array
       playerController.updateMobilityConstraints()
-      playerController.move()
+      playerController.movementScrolling()
       playerController.movementReset()
       playerController.spriteAnimations()
 

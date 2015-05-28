@@ -43,7 +43,7 @@ class PlayerController(game: PokemonGameEngine) {
   }
 
   // Movement scrolling
-  def move(): Unit = {
+  def movementScrolling(): Unit = {
     if (walking) {
       movespritepixels += 1
       if (up && movable_up) {
@@ -62,11 +62,149 @@ class PlayerController(game: PokemonGameEngine) {
   }
 
   def movementReset(): Unit = {
-    // TODO
+    if (movespritepixels >= 16) {
+      movespritepixels = 0
+      walking = false
+      if (up && movable_up) posY_tile -= 1
+      if (down && movable_down) posY_tile += 1
+      if (left && movable_left) posX_tile -= 1
+      if (right && movable_right) posX_tile += 1
+      up = false
+      down = false
+      left = false
+      right = false
+      footsprite = !footsprite
+      if (playerPokemon1.curHp <= 0) {
+        println(playerPokemon1.name + " has fainted.")
+        println(s"${game.gold.name} is all out of usable Pokemon.")
+        println(s"${game.gold.name} whited out.")
+        currentX_loc += 42 - posX_tile
+        currentY_loc += 107 - posY_tile
+        posX_tile = 42
+        posY_tile = 107
+        playerPokemon1.healPokemon
+        gold.setSprite(playerUp)
+      }
+      if (playerPokemon1.statusEffect eq 2 || playerPokemon1.statusEffect eq 3) {
+        playerPokemon1.curHp -= 1
+      }
+    }
   }
 
   def spriteAnimations(): Unit = {
-    // TODO
+    val gold = game.gold
+    //Player Sprite Animations (Up)
+    if (up && movable_up) {
+      if (movespritepixels >= 0 && movespritepixels < 4) {
+        gold.sprite = Sprites.playerUp
+      }
+      else if (movespritepixels > 4 && movespritepixels < 8) {
+        gold.sprite = Sprites.playerUp
+      }
+      else if (movespritepixels > 8 && movespritepixels < 12) {
+        if (footsprite) {
+          gold.sprite = Sprites.playerUp2
+        }
+        else {
+          gold.sprite = Sprites.playerUp1
+        }
+      }
+      else if (movespritepixels >= 12 && movespritepixels < 15) {
+        if (footsprite) {
+          gold.sprite = Sprites.playerUp2
+        }
+        else {
+          gold.sprite = Sprites.playerUp1
+        }
+      }
+      else {
+        gold.sprite = Sprites.playerUp
+      }
+    }
+    //Player Sprite Animations (Down)
+    if (down && movable_down) {
+      if (movespritepixels >= 0 && movespritepixels < 4) {
+        gold.sprite = Sprites.playerDown
+      }
+      else if (movespritepixels > 4 && movespritepixels < 8) {
+        gold.sprite = Sprites.playerDown
+      }
+      else if (movespritepixels > 8 && movespritepixels < 12) {
+        if (footsprite) {
+          gold.sprite = Sprites.playerDown2
+        }
+        else {
+          gold.sprite = Sprites.playerDown1
+        }
+      }
+      else if (movespritepixels >= 12 && movespritepixels < 15) {
+        if (footsprite) {
+          gold.sprite = Sprites.playerDown2
+        }
+        else {
+          gold.sprite = Sprites.playerDown1
+        }
+      }
+      else {
+        gold.sprite = Sprites.playerDown
+      }
+    }
+    //Player Sprite Animations (Left)
+    if (left == true && movable_left == true) {
+      if (movespritepixels >= 0 && movespritepixels < 4) {
+        gold.setSprite(playerLeft)
+      }
+      else if (movespritepixels > 4 && movespritepixels < 8) {
+        gold.setSprite(playerLeft)
+      }
+      else if (movespritepixels > 8 && movespritepixels < 12) {
+        if (footsprite == false) {
+          gold.setSprite(playerLeft1)
+        }
+        else {
+          gold.setSprite(playerLeft2)
+        }
+      }
+      else if (movespritepixels >= 12 && movespritepixels < 15) {
+        if (footsprite == false) {
+          gold.setSprite(playerLeft1)
+        }
+        else {
+          gold.setSprite(playerLeft2)
+        }
+      }
+      else {
+        gold.setSprite(playerLeft)
+      }
+    }
+    //Player Sprite Animations (Right)
+    if (right == true && movable_right == true) {
+      if (movespritepixels >= 0 && movespritepixels < 4) {
+        gold.setSprite(playerRight)
+      }
+      else if (movespritepixels > 4 && movespritepixels < 8) {
+        gold.setSprite(playerRight)
+      }
+      else if (movespritepixels > 8 && movespritepixels < 12) {
+        if (footsprite == false) {
+          gold.setSprite(playerRight1)
+        }
+        else {
+          gold.setSprite(playerRight2)
+        }
+      }
+      else if (movespritepixels >= 12 && movespritepixels < 15) {
+        if (footsprite == false) {
+          gold.setSprite(playerRight1)
+        }
+        else {
+          gold.setSprite(playerRight2)
+        }
+      }
+      else {
+        gold.setSprite(playerRight)
+      }
+    }
   }
 
 
