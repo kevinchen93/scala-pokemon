@@ -1,10 +1,13 @@
 import java.awt.event.{ActionEvent, ActionListener}
-import java.awt.{Graphics, Image, Dimension, Color}
+import java.awt._
+import java.awt.geom.AffineTransform
 import java.io._
 import java.util.StringTokenizer
 import javax.swing.{Timer, JFrame, JPanel}
 
 import scala.compat.Platform
+import scala.swing._
+import scala.util.Random
 
 /**
  * Created by kevinchen on 5/24/15.
@@ -15,16 +18,7 @@ class PokemonGameEngine extends JPanel with ActionListener {
   var debugNoBattle = false
   var debugNoClip = false
 
-  // PLAYER VARS
-  var name = "Gold"
-
-  val gold = new Player(10, 9, name, Sprites.player)
-  var pokemonparty: List[Monsters] = Nil
-
-  var currentMapName = "Data/Johto.map"
   val mapLoader = new MapLoader(this)
-
-  val mainitems = Array.ofDim[UsableItem](33, 99)
 
   var gameStarted = false
   var startVisible = true
@@ -55,45 +49,20 @@ class PokemonGameEngine extends JPanel with ActionListener {
 
   var timePlayed: Long = 0
 
-  sealed trait Direction
-
-  case object Up extends Direction
-
-  case object Down extends Direction
-
-  case object Left extends Direction
-
-  case object Right extends Direction
-
-  def movableInDirection(dir: Direction): Boolean = dir match {
-    case Up => playerController.movable_up
-    case Down => playerController.movable_down
-    case Left => playerController.movable_left
-    case Right => playerController.movable_right
-  }
+  val random = new Random()
 
   def start(continued: Boolean): Unit = {
     mapLoader.loadTileSet()
-    mapLoader.loadMap(currentMapName)
+    mapLoader.loadMap()
     if (continued) {
       GameLoader.loadGame(this)
-      mainitems(0)(3) = Items.Potion
     }
     else {
-      playerController.currentX_loc = 6 - 7
-      playerController.currentY_loc = 67 - 4
-      playerController.posX_tile = playerController.currentX_loc + 7
-      playerController.posY_tile = playerController.currentY_loc + 4
-
-      pokemonparty = Monsters.create(25) :: pokemonparty
-      pokemonparty = Monsters.create(0) :: pokemonparty
-      pokemonparty = Monsters.create(0) :: pokemonparty
-      pokemonparty = Monsters.create(0) :: pokemonparty
-      pokemonparty = Monsters.create(0) :: pokemonparty
-      pokemonparty = Monsters.create(0) :: pokemonparty
-      mainitems(0)(3) = Items.Potion
-      playerController.money = 2000
+      mapLoader.setInitialLocation()
+      playerController.seedPokemon()
+      playerController.seedMoney()
     }
+    playerController.seedItems()
     soundController.play(SoundController.cherryGroveCity)
     atTitle = false
     atContinueScreen = false
@@ -102,18 +71,13 @@ class PokemonGameEngine extends JPanel with ActionListener {
     timePlayed = Platform.currentTime
   }
 
-  def wait(n: Int): Unit = {
+  private def wait(n: Int): Unit = {
     var t0: Long = 0L
     var t1: Long = 0L
     t0 = System.currentTimeMillis
     do {
       t1 = System.currentTimeMillis
     } while ((t1 - t0) < (n * 1000))
-  }
-
-  override def paintComponent(g: Graphics): Unit = {
-    super.paintComponent(g)
-    playerController.paintComponent(g)
   }
 
   override def actionPerformed(e: ActionEvent): Unit = {
@@ -128,21 +92,21 @@ class PokemonGameEngine extends JPanel with ActionListener {
       // update clock
       elapsedSeconds = (currentTime / 1000).toInt
 
-      // todo player should be in PlayerController
-      gold.x = playerController.posX_tile
-      gold.y = playerController.posY_tile
+      val gold = playerController.gold
+      gold.x = mapLoader.posX_tile
+      gold.y = mapLoader.posY_tile
 
       // check for wild pokemon encounters
       checkBattle()
 
       // Teleport code
-      playerController.transfer()
+      mapLoader.transfer()
 
       // can't walk outside map array
-      playerController.updateMobilityConstraints()
-      playerController.movementScrolling()
-      playerController.movementReset()
-      playerController.spriteAnimations()
+      mapLoader.updateMobilityConstraints()
+      mapLoader.movementScrolling()
+      mapLoader.movementReset()
+      mapLoader.spriteAnimations()
 
     } else {
       startVisible = !startVisible
@@ -151,11 +115,11 @@ class PokemonGameEngine extends JPanel with ActionListener {
   }
 
   // wild pokemon encounter check
-  def checkBattle(): Unit = {
+  private def checkBattle(): Unit = {
     val r = ((5 - 1) * Math.random + 1).toInt
-    val rndwildmodify = randGen.nextInt(22) + 11
+    val randomInt = random.nextInt(22) + 11
     if (!debugNoBattle) {
-      if (stepscount >= rndwildmodify) {
+      if (playerController.stepsCount >= randomInt) {
         soundController.play(SoundController.battleBGM)
         var wildPokemon: List[Monsters] = null
         r match {
@@ -168,8 +132,8 @@ class PokemonGameEngine extends JPanel with ActionListener {
         wait(1)
         inBattle = true
         disable_start = true
-        battleController.encounter = new WildBattleScene(this, pokemonparty, wildPokemon)
-        stepscount = 0
+        battleController.encounter = new WildBattleScene(this, playerController.pokemonParty, wildPokemon)
+        playerController.stepsCount = 0
         try {
           Thread.sleep(500)
         }
@@ -180,8 +144,43 @@ class PokemonGameEngine extends JPanel with ActionListener {
 
       }
     }
-
   }
 
+  override def paintComponent(g: Graphics): Unit = {
+    super.paintComponent(g)
+    val g2 = g.asInstanceOf[Graphics2D]
+    val at = new AffineTransform()
+    g2.setTransform(at)
 
+    // Draw Title Screen
+    if (atTitle) {
+      g.drawImage(Sprites.titlescreen, 0, 0, null)
+      if (startVisible) {
+        g.drawImage(Sprites.start_symbol, 0, 260, null)
+      }
+    }
+
+    // Draw Continue Screen
+    else if (atContinueScreen) {
+      g.drawImage(Sprites.continuescreen, 0, 0, null)
+      concurrentMenuItem match {
+        case 0 => g.drawImage(Sprites.arrow, 13, 20, null)
+        case 1 => g.drawImage(Sprites.arrow, 13, 52, null)
+        case 2 => g.drawImage(Sprites.arrow, 13, 84, null)
+      }
+    }
+
+    // Draw Battle Scene
+    else {
+      if (inBattle) {
+        battleController.encounter.paint(g)
+      }
+      else {
+        mapLoader.paintComponent(g)
+      }
+      if (inMenu) {
+        menu.paint(g)
+      }
+    }
+  }
 }
