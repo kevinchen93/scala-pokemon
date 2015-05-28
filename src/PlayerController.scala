@@ -1,5 +1,5 @@
 import java.awt.geom.AffineTransform
-import java.awt.{Graphics2D, Color, Graphics}
+import java.awt.{Rectangle, Graphics2D, Color, Graphics}
 
 /**
  * Created by kevinchen on 5/26/15.
@@ -96,7 +96,7 @@ class PlayerController(game: PokemonGameEngine) {
         game.battleController.encounter.paint(g)
       }
       else {
-        // TODO
+        game.mapLoader.paintComponent(g2)
       }
       if (game.inMenu) {
         game.menu.paint(g)

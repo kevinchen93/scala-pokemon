@@ -1,6 +1,8 @@
-import java.awt.Image
+import java.awt.{Color, Rectangle, Graphics, Image}
 import java.io._
 import java.util.StringTokenizer
+
+import scala.swing.Graphics2D
 
 /**
  * Created by kevinchen on 5/26/15.
@@ -91,6 +93,60 @@ class MapLoader(game: PokemonGameEngine) {
         i.printStackTrace()
       }
     }
+  }
+
+  def paintComponent(g2: Graphics2D): Unit = {
+    // Draw the map
+    g2.setClip(new Rectangle(posX - 240, posY - 160, posX + 480, posY + 320))
+    g2.translate(offsetX - (currentX_loc * 32), offsetY - (currentY_loc * 32))
+
+    for (y <- 1 to mapTilesY) {
+      for (x <- 1 to mapTilesX) {
+        // Layer 0
+        if (currentMap0(tile_number) != 0) {
+          g.drawImage(tileset(currentMap0(tile_number) - 1), x_coor, y_coor, null)
+        }
+        //Layer 1
+        if (currentMap1(tile_number) != 0) {
+          g.drawImage(tileset(currentMap1(tile_number) - 1), x_coor, y_coor, null)
+        }
+        // Impassible tiles
+        if (!tilesLoaded) {
+          for (i <- impassibleTiles.indices) {
+            val tile = impassibleTiles(i)
+            if (currentMap0(tile_number) == tile || currentMap1(tile_number) == tile) {
+              if (!game.debugNoClip) {
+                currentMapStaticTiles(tile_number) = new StaticTile(x_coor / 32, y_coor / 32, null)
+              }
+            }
+          }
+        }
+        x_coor += 32
+        tile_number += 1
+      }
+      x_coor = 0
+      y_coor += 32
+    }
+    tilesLoaded = true
+    tile_number = 0
+    x_coor = 0
+    y_coor = 0
+
+    // NPC sprites
+    for (i <- currentMapNPC.indices) {
+      val npc = currentMapNPC(i)
+      g2.drawImage(npc.sprite, npc.x * TITLE_WIDTH_PIXLES, npc.y * TITLE_HEIGHT_PIXELS - 10, null)
+    }
+
+    // Reset to 0,0
+    g2.translate(-offsetX, -offsetY)
+    // Player sprites
+    g2.setTransform(at)
+    g2.drawImage(gold.sprite, posX, posY, null)
+    g2.setFont(Fonts.pokefont)
+    g2.setColor(Color.WHITE)
+    g2.drawString("" + posX_tile + "," + posY_tile, 10, 25)
+    showMessageBox(g)
   }
 
 }
