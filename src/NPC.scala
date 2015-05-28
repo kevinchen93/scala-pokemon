@@ -26,6 +26,39 @@ object NPC {
   val imgOak = ImageUtils.createImage("Graphics/Characters/NPC/ProfOak.png")
   val imgShopKeep = ImageUtils.createImage("Graphics/Characters/NPC/ShopKeep.png")
   val imgYoungster = ImageUtils.createImage("Graphics/Characters/NPC/Youngster.png")
+
+  var violetCitizen1 = new NPC(42, 30, "Citizen", "We care about the traditional buildings around here.", NPC.imgBaldMan, null)
+  var violetCitizen2 = new NPC(34, 34, "Citizen", "It is rumored that there are ghost pokemon in the Sprout " +
+    "Tower.", NPC.imgBill, null)
+  var violetCitizen3 = new NPC(30, 23, "Citizen", "Hey, your a pokemon trainer! If you beat the gym leader, " +
+    "you'll be ready for the big time.", NPC.imgCamperL, null)
+  var violetCitizen4 = new NPC(24, 26, "Citizen", "Falkner, from Violet City pokemon gym, is a fine trainer.",
+    NPC.imgBoy, null)
+  var violetCitizen5 = new NPC(11, 23, "Citizen", "You can't have your pokemon out with you in all places.",
+    NPC.imgFatMan, null)
+  var violetIndoors1 = new NPC(8, 108, "Citizen", "There are many wild Pokemon in the tall grass.", NPC.imgBaldMan,
+    null)
+  var violetIndoors2 = new NPC(3, 107, "Citizen", "Do you want to trade Pokemon?", NPC.imgBoy, null)
+  var schoolStudent1 = new NPC(23, 90, "Citizen", "I want to learn how to become a Pokemon Master.",
+    NPC.imgYoungster, null)
+  var schoolStudent2 = new NPC(25, 90, "Citizen", "What type of Pokemon is Pikachu?", NPC.imgBoy, null)
+  var schoolStudent3 = new NPC(26, 90, "Citizen", "Are you a Pokemon trainer?", NPC.imgBeauty, null)
+  var schoolStudent4 = new NPC(23, 88, "Citizen", "The Sprout Tower is a shrine to Bellsprout.", NPC.imgYoungster, null)
+  var schoolStudent5 = new NPC(25, 86, "Citizen", "Whadaya want from me!", NPC.imgCamperL, null)
+  var schoolStudent6 = new NPC(24, 84, "Citizen", "You're never too old to learn about Pokemon.", NPC.imgBaldMan, null)
+  var martCustomer1 = new NPC(24, 106, "Citizen", "I wonder if they carry Pokeballs.", NPC.imgYoungster, null)
+  var storeClerk = new NPC(20, 107, "Citizen", "Can I help you with something?", NPC.imgShopKeep, null)
+  var centerVisitor1 = new NPC(40, 107, "Citizen", "You can heal your Pokemon by talking to Nurse Joy.",
+    NPC.imgFatMan,
+    null)
+  var nurseJoy = new NPC(42, 105, "Citizen", "We hope to see you again!", NPC.imgNurse, null)
+  var birdKeeper1 = new NPC(5, 89, "Citizen", "I want to be like Falkner.", NPC.imgBirdKeeperR, null)
+  var birdKeeper2 = new NPC(10, 85, "Citizen", "Falkner is the best.", NPC.imgBirdKeeperL, null)
+  var leaderFaulkner = new NPC(7, 81, "Citizen", "My precious bird Pokemon are unstopable.", NPC.imgFalkner, null)
+  var oldMan1 = new NPC(88, 102, "Citizen", "I can guide you around cherrygrove!", NPC.imgGuideGent, null)
+  var cherrygroveCitizen1 = new NPC(84, 105, "Citizen", "I'm hungry.", NPC.imgFatMan, null)
+  var cherrygroveCitizen2 = new NPC(83, 108, "Citizen", "Cherrygrove City is beautiful.", NPC.imgLass, null)
+  var cherrygroveCitizen3 = new NPC(78, 104, "Citizen", "Nothing interesting happens here.", NPC.imgBoy, null)
 }
 
 
@@ -42,37 +75,3 @@ MoveableActor {
 
   def text(other: Player) = if (adjacentTo(other)) text else ""
 }
-
-
-var violetCitizen1 = new NPC(42, 30, "Citizen", "We care about the traditional buildings around here.", NPC.imgBaldMan, null)
-var violetCitizen2 = new NPC(34, 34, "Citizen", "It is rumored that there are ghost pokemon in the Sprout " +
-  "Tower.", NPC.imgBill, null)
-var violetCitizen3 = new NPC(30, 23, "Citizen", "Hey, your a pokemon trainer! If you beat the gym leader, " +
-  "you'll be ready for the big time.", NPC.imgCamperL, null)
-var violetCitizen4 = new NPC(24, 26, "Citizen", "Falkner, from Violet City pokemon gym, is a fine trainer.",
-  NPC.imgBoy, null)
-var violetCitizen5 = new NPC(11, 23, "Citizen", "You can't have your pokemon out with you in all places.",
-  NPC.imgFatMan, null)
-var violetIndoors1 = new NPC(8, 108, "Citizen", "There are many wild Pokemon in the tall grass.", NPC.imgBaldMan,
-  null)
-var violetIndoors2 = new NPC(3, 107, "Citizen", "Do you want to trade Pokemon?", NPC.imgBoy, null)
-var schoolStudent1 = new NPC(23, 90, "Citizen", "I want to learn how to become a Pokemon Master.",
-  NPC.imgYoungster, null)
-var schoolStudent2 = new NPC(25, 90, "Citizen", "What type of Pokemon is Pikachu?", NPC.imgBoy, null)
-var schoolStudent3 = new NPC(26, 90, "Citizen", "Are you a Pokemon trainer?", NPC.imgBeauty, null)
-var schoolStudent4 = new NPC(23, 88, "Citizen", "The Sprout Tower is a shrine to Bellsprout.", NPC.imgYoungster, null)
-var schoolStudent5 = new NPC(25, 86, "Citizen", "Whadaya want from me!", NPC.imgCamperL, null)
-var schoolStudent6 = new NPC(24, 84, "Citizen", "You're never too old to learn about Pokemon.", NPC.imgBaldMan, null)
-var martCustomer1 = new NPC(24, 106, "Citizen", "I wonder if they carry Pokeballs.", NPC.imgYoungster, null)
-var storeClerk = new NPC(20, 107, "Citizen", "Can I help you with something?", NPC.imgShopKeep, null)
-var centerVisitor1 = new NPC(40, 107, "Citizen", "You can heal your Pokemon by talking to Nurse Joy.",
-  NPC.imgFatMan,
-  null)
-var nurseJoy = new NPC(42, 105, "Citizen", "We hope to see you again!", NPC.imgNurse, null)
-var birdKeeper1 = new NPC(5, 89, "Citizen", "I want to be like Falkner.", NPC.imgBirdKeeperR, null)
-var birdKeeper2 = new NPC(10, 85, "Citizen", "Falkner is the best.", NPC.imgBirdKeeperL, null)
-var leaderFaulkner = new NPC(7, 81, "Citizen", "My precious bird Pokemon are unstopable.", NPC.imgFalkner, null)
-var oldMan1 = new NPC(88, 102, "Citizen", "I can guide you around cherrygrove!", NPC.imgGuideGent, null)
-var cherrygroveCitizen1 = new NPC(84, 105, "Citizen", "I'm hungry.", NPC.imgFatMan, null)
-var cherrygroveCitizen2 = new NPC(83, 108, "Citizen", "Cherrygrove City is beautiful.", NPC.imgLass, null)
-var cherrygroveCitizen3 = new NPC(78, 104, "Citizen", "Nothing interesting happens here.", NPC.imgBoy, null)

@@ -5,7 +5,7 @@ import scala.util.Random
 /**
  * Created by kevinchen on 5/23/15.
  */
-class Player(var x: Int, var y: Int, name: String, sprite: Image) extends MoveableActor(x, y) {
+class Player(var x: Int, var y: Int, name: String, var sprite: Image) extends MoveableActor(x, y) {
 
   var pokemonOwned = 1
   var random: Random = new Random()

@@ -131,7 +131,7 @@ class PokemonGameEngine extends ActionListener {
       checkBattle()
 
       // Teleport code
-      transfer()
+      playerController.transfer()
 
       // can't walk outside map array
       playerController.updateMobilityConstraints()
