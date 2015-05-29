@@ -1,4 +1,4 @@
-import java.awt.{Toolkit, Image}
+import java.awt.{Image, Toolkit}
 
 /**
  * Created by kevinchen on 5/23/15.

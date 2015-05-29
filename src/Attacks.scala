@@ -8,7 +8,7 @@ class Attacks (move: String) {
 
   def printNoEffect() = println("It had no effect!")
 
-  def damage(enemy: Monsters): Int = move match {
+  def damage(enemy: Monster): Int = move match {
     case "Growl" => {
       if (enemy.curAttack <= 0) printNoEffect()
       else {

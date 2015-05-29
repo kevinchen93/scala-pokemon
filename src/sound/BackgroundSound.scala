@@ -1,7 +1,7 @@
 package sound
 
 import java.io.IOException
-import javax.sound.sampled.{SourceDataLine, AudioInputStream}
+import javax.sound.sampled.{AudioInputStream, SourceDataLine}
 
 /**
  * Created by kevinchen on 5/23/15.

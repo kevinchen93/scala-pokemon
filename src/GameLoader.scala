@@ -24,7 +24,7 @@ object GameLoader {
       pc.posY_tile = pc.currentY_loc + 4
       game.money = dis.readLine.toInt
       for (i <- 1 to 6) {
-        game.pokemonparty = Monsters.create(dis.readLine().toInt) :: game.pokemonparty
+        game.pokemonparty = Monster.create(dis.readLine().toInt) :: game.pokemonparty
       }
       println(game.gold.name + dis.readLine)
       dis.close()

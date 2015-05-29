@@ -1,11 +1,13 @@
-import java.awt.{Image}
-import java.io.{IOException, FileNotFoundException, FileReader, BufferedReader}
+import java.awt.Image
+import java.io.{BufferedReader, FileNotFoundException, FileReader, IOException}
 import java.util.StringTokenizer
+
+import scala.io.Source
 
 /**
  * Created by kevinchen on 5/23/15.
  */
-object Monsters {
+object Monster {
 
   private var normal = 0
   private var fire = 1
@@ -39,14 +41,14 @@ object Monsters {
   lazy val statusFRZ = ImageUtils.createImage("Graphics/Pictures/StatusFRZ.png")
 
 
-  def create(n: Int): Monsters = {
+  def create(n: Int): Monster = {
 
     def battler(num: String) = s"Graphics/Battlers/${num}.png"
     def icon(num: String) = s"Graphics/Icons/icon${num}.png"
 
-    val monster = new Monsters
+    val monster = new Monster
 
-    def setStats(monster: Monsters,
+    def setStats(monster: Monster,
                  name: String,
                  level: Int,
                  number: Int,
@@ -203,7 +205,7 @@ object Monsters {
 			strong[bug]=true;*/
       }
       case _ => {
-        println(s"TODO, ${Monsters.getClass.getSimpleName}.scala -- read in from file")
+        println(s"TODO, ${Monster.getClass.getSimpleName}.scala -- read in from file")
 //        name = "MissingNo"
 //        level = 255
 //        number = 0
@@ -242,7 +244,7 @@ object Monsters {
   }
 }
 
-class Monsters {
+class Monster {
 
   var name: String = ""
   var level: Int = 0
@@ -289,12 +291,12 @@ class Monsters {
   private var frontSpriteShiny: Image = null
   private var partyIcon: Image = null
 
-  var move: Attacks
+  var move: Attacks = null
   var move1 = ""
   var move2 = ""
   var move3 = ""
   var move4 = ""
-  var attackDamage: Int
+  var attackDamage: Int = 0
 
   var statusEffect = 0
 
@@ -304,30 +306,30 @@ class Monsters {
 
   def statusImage(): Image = {
     statusEffect match {
-      case Monsters.statusParalyzed => Monsters.statusPAR
-      case Monsters.statusBurned => Monsters.statusBRN
-      case Monsters.statusPoisoned => Monsters.statusPSN
-      case Monsters.statusAsleep => Monsters.statusSLP
-      case Monsters.statusFrozen => Monsters.statusFRZ
+      case Monster.statusParalyzed => Monster.statusPAR
+      case Monster.statusBurned => Monster.statusBRN
+      case Monster.statusPoisoned => Monster.statusPSN
+      case Monster.statusAsleep => Monster.statusSLP
+      case Monster.statusFrozen => Monster.statusFRZ
     }
     null
   }
 
   override def toString: String = s"Pokemon: $name Level: $level HP: $curHp / $hp"
 
-  def unaffected = statusEffect == Monsters.statusUnaffected
+  def unaffected = statusEffect == Monster.statusUnaffected
 
   def affected = !unaffected
 
-  def paralyzed = statusEffect == Monsters.statusParalyzed
+  def paralyzed = statusEffect == Monster.statusParalyzed
 
-  def burned = statusEffect == Monsters.statusBurned
+  def burned = statusEffect == Monster.statusBurned
 
-  def poisoned = statusEffect == Monsters.statusPoisoned
+  def poisoned = statusEffect == Monster.statusPoisoned
 
-  def asleep = statusEffect == Monsters.statusAsleep
+  def asleep = statusEffect == Monster.statusAsleep
 
-  def frozen = statusEffect == Monsters.statusFrozen
+  def frozen = statusEffect == Monster.statusFrozen
 
   def stabilizeStatus(): Unit = {
     statusEffect match {
@@ -371,9 +373,7 @@ class Monsters {
 
   def loadPokemon() = {
     try {
-      val reader = new BufferedReader(new FileReader("Data/pokemon.txt"))
-      var line = ""
-      var tokens = new StringTokenizer(line)
+      val reader = Source.fromFile("Data/pokemon.txt").bufferedReader()
 
       number = reader.readLine.toInt
       println(number)
@@ -397,8 +397,8 @@ class Monsters {
       println(type2)
 
 
-      line = reader.readLine
-      tokens = new StringTokenizer(line)
+      var line = reader.readLine
+      var tokens = new StringTokenizer(line)
       baseHp = tokens.nextToken.toInt
       println(baseHp)
 

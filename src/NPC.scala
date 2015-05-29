@@ -62,7 +62,7 @@ object NPC {
 }
 
 
-class NPC(var x: Int, var y: Int, val name: String, text: String, sprite: Image, battleSprite: Image) extends
+class NPC(var x: Int, var y: Int, val name: String, text: String, var sprite: Image, battleSprite: Image) extends
 MoveableActor {
 
   var battleText = text

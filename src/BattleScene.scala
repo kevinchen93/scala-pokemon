@@ -1,4 +1,4 @@
-import java.awt.{Image, Graphics, Color}
+import java.awt.{Color, Graphics}
 
 import scala.util.Random
 
@@ -6,8 +6,8 @@ import scala.util.Random
  * Created by kevinchen on 5/27/15.
  */
 abstract class BattleScene(game: PokemonGameEngine,
-                            pokemon: List[Monsters],
-                            enemies: List[Monsters],
+                            pokemon: List[Monster],
+                            enemies: List[Monster],
                             wildFight: Boolean) {
 
   var playerTurn = true
@@ -196,11 +196,11 @@ abstract class BattleScene(game: PokemonGameEngine,
       if (doleOutAttack(enemy, playerPokemon, i)) println("Enemy's turn is over")
 
       enemy.statusEffect match {
-        case Monsters.statusBurned => {
+        case Monster.statusBurned => {
           enemy.curHp -= 2
           println(s"${enemy.name} has been hurt by its burn")
         }
-        case Monsters.statusPoisoned => {
+        case Monster.statusPoisoned => {
           enemy.curHp -= 2
           println(s"${enemy.name} has been hurt by its poison")
         }
@@ -210,7 +210,7 @@ abstract class BattleScene(game: PokemonGameEngine,
 
     }
 
-    def doleOutAttack(attacker: Monsters, recipient: Monsters, moveNumber: Int): Boolean = {
+    def doleOutAttack(attacker: Monster, recipient: Monster, moveNumber: Int): Boolean = {
       if (attacker.paralyzed && odds(1, 2)) {
         println(s"${attacker.name} is paralyzed. It can't move.")
         return false
@@ -230,7 +230,7 @@ abstract class BattleScene(game: PokemonGameEngine,
 
     def diceRoll(sides: Int) = random.nextInt(sides)
     def odds(numerator: Int, denominator: Int): Boolean = diceRoll(denominator) < numerator
-    def attemptToStabilize(pokemon: Monsters): Boolean = {
+    def attemptToStabilize(pokemon: Monster): Boolean = {
       if (odds(2, 5)) {
         enemy.stabilizeStatus()
         true

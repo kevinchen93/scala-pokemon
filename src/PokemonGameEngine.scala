@@ -1,9 +1,7 @@
-import java.awt.event.{ActionEvent, ActionListener}
 import java.awt._
+import java.awt.event.{ActionEvent, ActionListener}
 import java.awt.geom.AffineTransform
-import java.io._
-import java.util.StringTokenizer
-import javax.swing.{Timer, JFrame, JPanel}
+import javax.swing.{JPanel, Timer}
 
 import scala.compat.Platform
 import scala.swing._
@@ -18,7 +16,7 @@ class PokemonGameEngine extends JPanel with ActionListener {
   var debugNoBattle = false
   var debugNoClip = false
 
-  val mapLoader = new MapLoader(this)
+  val mapLoader = new MapController(this)
 
   var gameStarted = false
   var startVisible = true
@@ -121,13 +119,13 @@ class PokemonGameEngine extends JPanel with ActionListener {
     if (!debugNoBattle) {
       if (playerController.stepsCount >= randomInt) {
         soundController.play(SoundController.battleBGM)
-        var wildPokemon: List[Monsters] = null
+        var wildPokemon = Nil
         r match {
-          case 1 => wildPokemon = List(Monsters.create(198)) // wild Murkrow
-          case 2 => wildPokemon = List(Monsters.create(4)) // wild Charmander
-          case 3 => wildPokemon = List(Monsters.create(25)) // wild Pikachu
-          case 4 => wildPokemon = List(Monsters.create(220)) // wild Swinub
-          case _ => wildPokemon = List(Monsters.create(158)) // wild Totodile
+          case 1 => wildPokemon = Monster.create(198) :: wildPokemon // wild Murkrow
+          case 2 => wildPokemon = List(Monster.create(4)) // wild Charmander
+          case 3 => wildPokemon = List(Monster.create(25)) // wild Pikachu
+          case 4 => wildPokemon = List(Monster.create(220)) // wild Swinub
+          case _ => wildPokemon = List(Monster.create(158)) // wild Totodile
         }
         wait(1)
         inBattle = true

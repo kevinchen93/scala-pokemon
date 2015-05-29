@@ -1,5 +1,4 @@
-import java.awt.geom.AffineTransform
-import java.awt.{Graphics2D, Color, Graphics}
+
 
 /**
  * Created by kevinchen on 5/26/15.
@@ -8,7 +7,7 @@ class PlayerController(game: PokemonGameEngine) {
 
   var name = "Gold"
   val gold = new Player(10, 9, name, Sprites.player)
-  var pokemonParty: List[Monsters] = Nil
+  var pokemonParty: List[Monster] = Nil
 
   var stepsCount = 0
   var money = 2000
@@ -25,12 +24,12 @@ class PlayerController(game: PokemonGameEngine) {
 
   def seedPokemon(): Unit = {
     pokemonParty = List(
-      Monsters.create(25),
-      Monsters.create(0),
-      Monsters.create(0),
-      Monsters.create(0),
-      Monsters.create(0),
-      Monsters.create(0)
+      Monster.create(25),
+      Monster.create(0),
+      Monster.create(0),
+      Monster.create(0),
+      Monster.create(0),
+      Monster.create(0)
     )
   }
 

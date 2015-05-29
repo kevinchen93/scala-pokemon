@@ -1,6 +1,6 @@
 package sound
 
-import javax.sound.sampled.{LineEvent, LineListener, AudioInputStream, Clip}
+import javax.sound.sampled.{AudioInputStream, Clip, LineEvent, LineListener}
 
 /**
  * Created by kevinchen on 5/23/15.
