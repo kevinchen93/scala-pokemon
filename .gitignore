@@ -6,6 +6,9 @@
 # Java
 *.class
 
+# Ignore Gradle
+.gradle
+
 # Ignore Text files
 *.txt
 

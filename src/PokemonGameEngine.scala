@@ -119,7 +119,7 @@ class PokemonGameEngine extends JPanel with ActionListener {
     if (!debugNoBattle) {
       if (playerController.stepsCount >= randomInt) {
         soundController.play(SoundController.battleBGM)
-        var wildPokemon = Nil
+        var wildPokemon = List[Monster]()
         r match {
           case 1 => wildPokemon = Monster.create(198) :: wildPokemon // wild Murkrow
           case 2 => wildPokemon = List(Monster.create(4)) // wild Charmander
