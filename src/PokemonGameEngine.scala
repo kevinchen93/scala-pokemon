@@ -130,7 +130,7 @@ class PokemonGameEngine extends JPanel with ActionListener {
         wait(1)
         inBattle = true
         disable_start = true
-        battleController.encounter = new WildBattleScene(this, playerController.pokemonParty, wildPokemon)
+        battleController.encounter = Some(new WildBattleScene(this, playerController.pokemonParty, wildPokemon))
         playerController.stepsCount = 0
         try {
           Thread.sleep(500)

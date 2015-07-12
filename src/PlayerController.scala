@@ -7,7 +7,7 @@ class PlayerController(game: PokemonGameEngine) {
 
   var name = "Gold"
   val gold = new Player(10, 9, name, Sprites.player)
-  var pokemonParty: List[Monster] = Nil
+  var pokemonParty = List[Monster]()
 
   var stepsCount = 0
   var money = 2000
