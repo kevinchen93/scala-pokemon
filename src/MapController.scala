@@ -30,7 +30,7 @@ class MapController(game: PokemonGameEngine) {
 
   private def impassibleTilesFile = ""
   def loadImpassibleTilesFromFile(): Array[Int] = {
-    Source.fromFile(impassibleTilesFile).getLines.map { line => line.toInt }.toArray
+    Source.fromFile(impassibleTilesFile).getLines.map { _.toInt }.toArray
   }
 
   val TILE_WIDTH_PIXELS = 32
@@ -133,7 +133,6 @@ class MapController(game: PokemonGameEngine) {
   def loadMap(): Unit = MapLoader.loadMap(this, currentMapName)
 
   private def gold: Player = game.playerController.gold
-  private def pokemonParty: List[Monster] = game.playerController.pokemonParty
 
   def setInitialLocation(): Unit = {
     currentX_loc = 6 - 7
@@ -250,6 +249,8 @@ class MapController(game: PokemonGameEngine) {
         changeBGM(route30);
       }
     }*/
+
+    val pokemonParty = game.playerController.pokemonParty
 
     val myPokemon = pokemonParty.head
 
@@ -468,7 +469,7 @@ class MapController(game: PokemonGameEngine) {
       left = false
       right = false
       footSprite = !footSprite
-      val myPokemon = pokemonParty.head
+      val myPokemon = game.playerController.pokemonParty.head
       if (myPokemon.curHp <= 0) {
         println(s"${myPokemon.name} has fainted.")
         println(s"${gold.name} is all out of usable Pokemon.")

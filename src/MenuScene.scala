@@ -138,11 +138,11 @@ class MenuScene(game: PokemonGameEngine) {
       g.drawImage(partyscreenboxes, 190, 120, null)
       g.drawImage(partyscreenboxes, 190, 170, null)
       g.drawImage(partyscreenboxes, 190, 220, null)
-      if (game.pokemonparty.length == 2) {
+      if (game.playerController.pokemonParty.length == 2) {
         g.drawImage(partyscreenboxes, 190, 20, null)
       }
-      g.drawImage(game.playerPokemon1.icon, 45, 30, null)
-      g.drawString(game.playerPokemon1.name, 80, 120)
+      g.drawImage(game.playerController.pokemonParty(0).frontSprite(), 45, 30, null)
+      g.drawString(game.playerController.pokemonParty(0).name, 80, 120)
       if (!cancelbutton) {
         g.drawImage(partyscreencancel, 370, 280, null)
       }
@@ -169,25 +169,21 @@ class MenuScene(game: PokemonGameEngine) {
       }
     }
     if (inTrainerCard) {
+      val pc = game.playerController
       g.drawImage(trainercard, 0, 0, null)
       g.drawImage(game.cardSprite, 320, 100, null)
-      g.drawString("ID:     " + game.gold.getID, 295, 54)
-      g.drawString("Name:     " + game.gold.getName, 64, 93)
-      g.drawString("Money:                 $" + game.money, 64, 150)
-      g.drawString("Pokedex:                      " + game.gold.getPokemonOwned, 64, 183)
-      if (game.seconds < 10) {
-        g.drawString("Time:              0" + game.hours + ": 0" + game.minutes + ": 0" + game.seconds, 64, 213)
-      }
-      else {
-        g.drawString("Time:              0" + game.hours + ": 0" + game.minutes + ": " + game.seconds, 64, 213)
-      }
+      g.drawString(s"ID: ${pc.gold.id}     ", 295, 54)
+      g.drawString(s"Name:     ${pc.gold.name}", 64, 93)
+      g.drawString(s"Money:                 $$${pc.money}", 64, 150)
+      g.drawString(s"Pokedex:                      " + pc.gold.pokemonOwned, 64, 183)
+      g.drawString(s"Time:              ${doublePad(game.hours)}: ${doublePad(game.minutes)}: ${doublePad(game.seconds)}", 64, 213)
     }
     if (inSave) {
       g.drawImage(save, 0, 0, null)
-      g.drawString("" + game.gold.getName, 100, 68)
+      g.drawString("" + game.playerController.gold.name, 100, 68)
       g.drawString("" + game.badges, 100, 101)
       g.drawString("1", 110, 134)
-      g.drawString("0" + game.hours + ": 0" + game.minutes + ": " + game.seconds, 76, 166)
+      g.drawString(s"${doublePad(game.hours)}: ${doublePad(game.minutes)}: ${doublePad(game.seconds)}", 76, 166)
       if (currentSelectionSave == 0) {
         g.drawImage(arrow, 394, 148, null)
       }
@@ -216,6 +212,7 @@ class MenuScene(game: PokemonGameEngine) {
         g.drawImage(arrow, 22, 245, null)
       }
     }
+    def doublePad(x: Integer) = "%02d".format(x)
 
   }
 
