@@ -13,30 +13,24 @@ object GameSaver {
       val newSave: File = new File("Data/profile.sav")
       newSave.createNewFile
       bufferedWriter = new BufferedWriter(new FileWriter("Data/profile.sav"))
-      bufferedWriter.write(game.gold.name)
+      val pc = game.playerController
+      val ml = game.mapLoader
+      bufferedWriter.write(pc.gold.name)
       bufferedWriter.newLine
-      bufferedWriter.write("" + game.gold.id)
+      bufferedWriter.write("" + pc.gold.id)
       bufferedWriter.newLine
-      bufferedWriter.write("" + game.currentMap)
+      bufferedWriter.write("" + ml.currentMap)
       bufferedWriter.newLine
-      bufferedWriter.write("" + game.posX_tile)
+      bufferedWriter.write("" + ml.posX_tile)
       bufferedWriter.newLine
-      bufferedWriter.write("" + game.posY_tile)
+      bufferedWriter.write("" + ml.posY_tile)
       bufferedWriter.newLine
-      bufferedWriter.write("" + game.money)
+      bufferedWriter.write("" + pc.money)
       bufferedWriter.newLine
-      bufferedWriter.write("" + game.playerPokemon1.getNumber)
-      bufferedWriter.newLine
-      bufferedWriter.write("" + game.playerPokemon2.getNumber)
-      bufferedWriter.newLine
-      bufferedWriter.write("" + game.playerPokemon3.getNumber)
-      bufferedWriter.newLine
-      bufferedWriter.write("" + game.playerPokemon4.getNumber)
-      bufferedWriter.newLine
-      bufferedWriter.write("" + game.playerPokemon5.getNumber)
-      bufferedWriter.newLine
-      bufferedWriter.write("" + game.playerPokemon6.getNumber)
-      bufferedWriter.newLine
+      for (i <- 0 to 5) {
+        bufferedWriter.write("" + pc.pokemonParty(i).number)
+        bufferedWriter.newLine
+      }
       bufferedWriter.write("'s Save File has been loaded.")
     }
     catch {
