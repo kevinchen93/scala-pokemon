@@ -14,19 +14,19 @@ object GameLoader {
       fis = new FileInputStream(file)
       bis = new BufferedInputStream(fis)
       dis = new DataInputStream(bis)
-      game.gold.name = dis.readLine
-      game.gold.id = dis.readLine.toInt
-      val pc = game.playerController
-      game.playerController.currentMap = dis.readLine
-      pc.currentX_loc = dis.readLine.toInt - 7
-      pc.currentY_loc = dis.readLine.toInt - 4
-      pc.posX_tile = pc.currentX_loc + 7
-      pc.posY_tile = pc.currentY_loc + 4
-      game.money = dis.readLine.toInt
+      game.playerController.gold.name = dis.readLine
+      game.playerController.gold.id = dis.readLine.toInt
+
+      game.mapLoader.currentMap = dis.readLine
+      game.mapLoader.currentX_loc = dis.readLine.toInt - 7
+      game.mapLoader.currentY_loc = dis.readLine.toInt - 4
+      game.mapLoader.posX_tile = game.mapLoader.currentX_loc + 7
+      game.mapLoader.posY_tile = game.mapLoader.currentY_loc + 4
+      game.playerController.money = dis.readLine.toInt
       for (i <- 1 to 6) {
-        game.pokemonparty = Monster.create(dis.readLine().toInt) :: game.pokemonparty
+        game.playerController.pokemonParty = Monster.create(dis.readLine().toInt) :: game.playerController.pokemonParty
       }
-      println(game.gold.name + dis.readLine)
+      println(game.playerController.gold.name + dis.readLine)
       dis.close()
     }
     catch {
